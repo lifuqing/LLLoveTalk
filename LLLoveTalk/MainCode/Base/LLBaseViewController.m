@@ -7,25 +7,23 @@
 
 #import "LLBaseViewController.h"
 
-@interface LLBaseViewController ()
-
+@interface LLBaseViewController () <UIGestureRecognizerDelegate>
 @end
 
 @implementation LLBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if ([self.navigationController.viewControllers count] == 1) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
-*/
-
 @end
