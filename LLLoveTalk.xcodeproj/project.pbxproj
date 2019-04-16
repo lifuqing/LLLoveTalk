@@ -16,6 +16,17 @@
 		76190C4822573F3300FA944F /* LLTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76190C4722573F3300FA944F /* LLTabBarViewController.m */; };
 		76190C4B22573FE900FA944F /* LLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76190C4A22573FE900FA944F /* LLHomeViewController.m */; };
 		76190C4E22573FF900FA944F /* LLUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76190C4D22573FF900FA944F /* LLUserViewController.m */; };
+		7628BC54225F8622003B7401 /* LLHomeListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7628BC53225F8622003B7401 /* LLHomeListResponseModel.m */; };
+		76306793225F9C950008DD66 /* LLChatListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76306792225F9C950008DD66 /* LLChatListResponseModel.m */; };
+		763BA7DF2264CCDA007F673B /* LLBuyVipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7DE2264CCDA007F673B /* LLBuyVipViewController.m */; };
+		763BA7E22264CCF3007F673B /* LLEditInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E12264CCF3007F673B /* LLEditInfoViewController.m */; };
+		763BA7E52264D249007F673B /* LLPrivateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E42264D249007F673B /* LLPrivateViewController.m */; };
+		763BA7E822657CB2007F673B /* LLWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E722657CB2007F673B /* LLWebViewController.m */; };
+		763BA7EA2265805B007F673B /* 隐私政策.docx in Resources */ = {isa = PBXBuildFile; fileRef = 763BA7E92265805B007F673B /* 隐私政策.docx */; };
+		763BA7EF226600BC007F673B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 763BA7EE226600BC007F673B /* StoreKit.framework */; };
+		763BA7F222662EE4007F673B /* LLChatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7F122662EE3007F673B /* LLChatDetailViewController.m */; };
+		763BA7F52266306B007F673B /* LLChatDetailListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7F42266306B007F673B /* LLChatDetailListResponseModel.m */; };
+		763BA7F822663493007F673B /* LLChatDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7F722663493007F673B /* LLChatDetailTableViewCell.m */; };
 		764AB22F225743F000AD46E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB22E225743F000AD46E6 /* AppDelegate.m */; };
 		764AB232225744DF00AD46E6 /* LLTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB231225744DF00AD46E6 /* LLTheme.m */; };
 		764AB2392257735800AD46E6 /* LLLoveTalkURLConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB2382257735800AD46E6 /* LLLoveTalkURLConfig.m */; };
@@ -52,6 +63,11 @@
 		764AB423225B509700AD46E6 /* LLChatListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB422225B509700AD46E6 /* LLChatListTableViewCell.m */; };
 		764AB426225B601F00AD46E6 /* MBProgressHUD+LLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB425225B601F00AD46E6 /* MBProgressHUD+LLTools.m */; };
 		764AB429225B771D00AD46E6 /* LLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB428225B771D00AD46E6 /* LLLoginViewController.m */; };
+		76BF545222621B0700C424BB /* LLChatPrivateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545122621B0700C424BB /* LLChatPrivateTableViewCell.m */; };
+		76BF545522635B5800C424BB /* LLSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545422635B5800C424BB /* LLSearchViewController.m */; };
+		76BF545B2263611700C424BB /* LLTagExampleListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545A2263611700C424BB /* LLTagExampleListResponseModel.m */; };
+		76BF545E2263624F00C424BB /* LLExampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545D2263624F00C424BB /* LLExampleTableViewCell.m */; };
+		76BF5462226375D200C424BB /* LLUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF5461226375D200C424BB /* LLUserTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +89,26 @@
 		76190C4A22573FE900FA944F /* LLHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLHomeViewController.m; sourceTree = "<group>"; };
 		76190C4C22573FF900FA944F /* LLUserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUserViewController.h; sourceTree = "<group>"; };
 		76190C4D22573FF900FA944F /* LLUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUserViewController.m; sourceTree = "<group>"; };
+		7628BC52225F8622003B7401 /* LLHomeListResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLHomeListResponseModel.h; sourceTree = "<group>"; };
+		7628BC53225F8622003B7401 /* LLHomeListResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLHomeListResponseModel.m; sourceTree = "<group>"; };
+		76306791225F9C950008DD66 /* LLChatListResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatListResponseModel.h; sourceTree = "<group>"; };
+		76306792225F9C950008DD66 /* LLChatListResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatListResponseModel.m; sourceTree = "<group>"; };
+		763BA7DD2264CCDA007F673B /* LLBuyVipViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLBuyVipViewController.h; sourceTree = "<group>"; };
+		763BA7DE2264CCDA007F673B /* LLBuyVipViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLBuyVipViewController.m; sourceTree = "<group>"; };
+		763BA7E02264CCF3007F673B /* LLEditInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLEditInfoViewController.h; sourceTree = "<group>"; };
+		763BA7E12264CCF3007F673B /* LLEditInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLEditInfoViewController.m; sourceTree = "<group>"; };
+		763BA7E32264D249007F673B /* LLPrivateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLPrivateViewController.h; sourceTree = "<group>"; };
+		763BA7E42264D249007F673B /* LLPrivateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLPrivateViewController.m; sourceTree = "<group>"; };
+		763BA7E622657CB2007F673B /* LLWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLWebViewController.h; sourceTree = "<group>"; };
+		763BA7E722657CB2007F673B /* LLWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLWebViewController.m; sourceTree = "<group>"; };
+		763BA7E92265805B007F673B /* 隐私政策.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "隐私政策.docx"; sourceTree = "<group>"; };
+		763BA7EE226600BC007F673B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		763BA7F022662EE3007F673B /* LLChatDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatDetailViewController.h; sourceTree = "<group>"; };
+		763BA7F122662EE3007F673B /* LLChatDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatDetailViewController.m; sourceTree = "<group>"; };
+		763BA7F32266306B007F673B /* LLChatDetailListResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatDetailListResponseModel.h; sourceTree = "<group>"; };
+		763BA7F42266306B007F673B /* LLChatDetailListResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatDetailListResponseModel.m; sourceTree = "<group>"; };
+		763BA7F622663493007F673B /* LLChatDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatDetailTableViewCell.h; sourceTree = "<group>"; };
+		763BA7F722663493007F673B /* LLChatDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatDetailTableViewCell.m; sourceTree = "<group>"; };
 		764AB22D225743F000AD46E6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		764AB22E225743F000AD46E6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		764AB230225744DF00AD46E6 /* LLTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLTheme.h; sourceTree = "<group>"; };
@@ -221,6 +257,16 @@
 		764AB425225B601F00AD46E6 /* MBProgressHUD+LLTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+LLTools.m"; sourceTree = "<group>"; };
 		764AB427225B771D00AD46E6 /* LLLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLLoginViewController.h; sourceTree = "<group>"; };
 		764AB428225B771D00AD46E6 /* LLLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLLoginViewController.m; sourceTree = "<group>"; };
+		76BF545022621B0700C424BB /* LLChatPrivateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatPrivateTableViewCell.h; sourceTree = "<group>"; };
+		76BF545122621B0700C424BB /* LLChatPrivateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatPrivateTableViewCell.m; sourceTree = "<group>"; };
+		76BF545322635B5800C424BB /* LLSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLSearchViewController.h; sourceTree = "<group>"; };
+		76BF545422635B5800C424BB /* LLSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLSearchViewController.m; sourceTree = "<group>"; };
+		76BF54592263611700C424BB /* LLTagExampleListResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLTagExampleListResponseModel.h; sourceTree = "<group>"; };
+		76BF545A2263611700C424BB /* LLTagExampleListResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLTagExampleListResponseModel.m; sourceTree = "<group>"; };
+		76BF545C2263624F00C424BB /* LLExampleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLExampleTableViewCell.h; sourceTree = "<group>"; };
+		76BF545D2263624F00C424BB /* LLExampleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLExampleTableViewCell.m; sourceTree = "<group>"; };
+		76BF5460226375D200C424BB /* LLUserTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUserTableViewCell.h; sourceTree = "<group>"; };
+		76BF5461226375D200C424BB /* LLUserTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUserTableViewCell.m; sourceTree = "<group>"; };
 		B1C3AFB89463374257CEBA08 /* libPods-LLLoveTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LLLoveTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -231,6 +277,7 @@
 			files = (
 				764AB412225B19F400AD46E6 /* libcrypto.a in Frameworks */,
 				0223CE08B50E07E112FCAC91 /* libPods-LLLoveTalk.a in Frameworks */,
+				763BA7EF226600BC007F673B /* StoreKit.framework in Frameworks */,
 				764AB41A225B19F400AD46E6 /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +315,7 @@
 		76190C1F22573DB900FA944F /* LLLoveTalk */ = {
 			isa = PBXGroup;
 			children = (
+				763BA7EB2265807A007F673B /* Supporting Files */,
 				764AB235225758CE00AD46E6 /* Core */,
 				76190C3622573DE300FA944F /* MainCode */,
 				76190C2922573DBB00FA944F /* Assets.xcassets */,
@@ -281,14 +329,14 @@
 		76190C3622573DE300FA944F /* MainCode */ = {
 			isa = PBXGroup;
 			children = (
+				76190C3922573E2F00FA944F /* Tools */,
+				76190C3822573E1500FA944F /* Base */,
+				76190C3F22573E8F00FA944F /* Tab */,
 				764AB263225989F500AD46E6 /* Pay */,
 				764AB22D225743F000AD46E6 /* AppDelegate.h */,
 				764AB22E225743F000AD46E6 /* AppDelegate.m */,
 				764AB2372257735800AD46E6 /* LLLoveTalkURLConfig.h */,
 				764AB2382257735800AD46E6 /* LLLoveTalkURLConfig.m */,
-				76190C3822573E1500FA944F /* Base */,
-				76190C3F22573E8F00FA944F /* Tab */,
-				76190C3922573E2F00FA944F /* Tools */,
 			);
 			path = MainCode;
 			sourceTree = "<group>";
@@ -304,6 +352,8 @@
 				76190C4422573EE200FA944F /* LLBaseNavigationController.m */,
 				764AB25A2258C5E100AD46E6 /* LLNavigationBar.h */,
 				764AB25B2258C5E100AD46E6 /* LLNavigationBar.m */,
+				763BA7E622657CB2007F673B /* LLWebViewController.h */,
+				763BA7E722657CB2007F673B /* LLWebViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -326,10 +376,10 @@
 		76190C3A22573E3700FA944F /* User */ = {
 			isa = PBXGroup;
 			children = (
+				763BA7DC2264CCAF007F673B /* ViewController */,
+				76BF545F2263751D00C424BB /* View */,
 				76190C4C22573FF900FA944F /* LLUserViewController.h */,
 				76190C4D22573FF900FA944F /* LLUserViewController.m */,
-				764AB427225B771D00AD46E6 /* LLLoginViewController.h */,
-				764AB428225B771D00AD46E6 /* LLLoginViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -360,6 +410,29 @@
 			path = Tab;
 			sourceTree = "<group>";
 		};
+		763BA7DC2264CCAF007F673B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				764AB427225B771D00AD46E6 /* LLLoginViewController.h */,
+				764AB428225B771D00AD46E6 /* LLLoginViewController.m */,
+				763BA7DD2264CCDA007F673B /* LLBuyVipViewController.h */,
+				763BA7DE2264CCDA007F673B /* LLBuyVipViewController.m */,
+				763BA7E02264CCF3007F673B /* LLEditInfoViewController.h */,
+				763BA7E12264CCF3007F673B /* LLEditInfoViewController.m */,
+				763BA7E32264D249007F673B /* LLPrivateViewController.h */,
+				763BA7E42264D249007F673B /* LLPrivateViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		763BA7EB2265807A007F673B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				763BA7E92265805B007F673B /* 隐私政策.docx */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		764AB235225758CE00AD46E6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +447,10 @@
 		764AB23A2257757600AD46E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7628BC52225F8622003B7401 /* LLHomeListResponseModel.h */,
+				7628BC53225F8622003B7401 /* LLHomeListResponseModel.m */,
+				76BF54592263611700C424BB /* LLTagExampleListResponseModel.h */,
+				76BF545A2263611700C424BB /* LLTagExampleListResponseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -385,6 +462,8 @@
 				764AB24F2257807500AD46E6 /* LLTagCollectionViewCell.m */,
 				764AB2512257815300AD46E6 /* LLHeaderCollectionReusableView.h */,
 				764AB2522257815300AD46E6 /* LLHeaderCollectionReusableView.m */,
+				76BF545C2263624F00C424BB /* LLExampleTableViewCell.h */,
+				76BF545D2263624F00C424BB /* LLExampleTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -398,6 +477,8 @@
 				764AB23E2257771900AD46E6 /* LLChatContainerViewController.m */,
 				764AB41E225B41AD00AD46E6 /* LLChatListViewController.h */,
 				764AB41F225B41AD00AD46E6 /* LLChatListViewController.m */,
+				763BA7F022662EE3007F673B /* LLChatDetailViewController.h */,
+				763BA7F122662EE3007F673B /* LLChatDetailViewController.m */,
 			);
 			path = ChatList;
 			sourceTree = "<group>";
@@ -407,6 +488,10 @@
 			children = (
 				764AB421225B509700AD46E6 /* LLChatListTableViewCell.h */,
 				764AB422225B509700AD46E6 /* LLChatListTableViewCell.m */,
+				76BF545022621B0700C424BB /* LLChatPrivateTableViewCell.h */,
+				76BF545122621B0700C424BB /* LLChatPrivateTableViewCell.m */,
+				763BA7F622663493007F673B /* LLChatDetailTableViewCell.h */,
+				763BA7F722663493007F673B /* LLChatDetailTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -414,6 +499,10 @@
 		764AB2412257774B00AD46E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				76306791225F9C950008DD66 /* LLChatListResponseModel.h */,
+				76306792225F9C950008DD66 /* LLChatListResponseModel.m */,
+				763BA7F32266306B007F673B /* LLChatDetailListResponseModel.h */,
+				763BA7F42266306B007F673B /* LLChatDetailListResponseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -423,6 +512,8 @@
 			children = (
 				764AB24722577D2900AD46E6 /* LLSearchBar.h */,
 				764AB24822577D2900AD46E6 /* LLSearchBar.m */,
+				76BF545322635B5800C424BB /* LLSearchViewController.h */,
+				76BF545422635B5800C424BB /* LLSearchViewController.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -587,9 +678,19 @@
 			path = openssl;
 			sourceTree = "<group>";
 		};
+		76BF545F2263751D00C424BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				76BF5460226375D200C424BB /* LLUserTableViewCell.h */,
+				76BF5461226375D200C424BB /* LLUserTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		86CC2118B3C32AC33110125B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				763BA7EE226600BC007F673B /* StoreKit.framework */,
 				B1C3AFB89463374257CEBA08 /* libPods-LLLoveTalk.a */,
 			);
 			name = Frameworks;
@@ -628,6 +729,14 @@
 				TargetAttributes = {
 					76190C1C22573DB900FA944F = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -655,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76190C2A22573DBB00FA944F /* Assets.xcassets in Resources */,
+				763BA7EA2265805B007F673B /* 隐私政策.docx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,12 +803,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LLLoveTalk/Pods-LLLoveTalk-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -714,13 +826,20 @@
 			files = (
 				764AB2502257807500AD46E6 /* LLTagCollectionViewCell.m in Sources */,
 				764AB2622258E26400AD46E6 /* LLNavigation.m in Sources */,
+				763BA7F822663493007F673B /* LLChatDetailTableViewCell.m in Sources */,
+				763BA7DF2264CCDA007F673B /* LLBuyVipViewController.m in Sources */,
 				764AB429225B771D00AD46E6 /* LLLoginViewController.m in Sources */,
 				76190C4522573EE200FA944F /* LLBaseNavigationController.m in Sources */,
+				76306793225F9C950008DD66 /* LLChatListResponseModel.m in Sources */,
 				764AB2D722599FAC00AD46E6 /* TDOrderForAliPay.m in Sources */,
 				764AB24922577D2900AD46E6 /* LLSearchBar.m in Sources */,
 				764AB25F2258DC2900AD46E6 /* UIViewController+LLBarItem.m in Sources */,
+				763BA7F52266306B007F673B /* LLChatDetailListResponseModel.m in Sources */,
+				763BA7F222662EE4007F673B /* LLChatDetailViewController.m in Sources */,
+				763BA7E822657CB2007F673B /* LLWebViewController.m in Sources */,
 				764AB419225B19F400AD46E6 /* RSADataSigner.m in Sources */,
 				764AB423225B509700AD46E6 /* LLChatListTableViewCell.m in Sources */,
+				76BF5462226375D200C424BB /* LLUserTableViewCell.m in Sources */,
 				764AB2DB2259A34B00AD46E6 /* LLSNItem.m in Sources */,
 				764AB417225B19F400AD46E6 /* DataSigner.m in Sources */,
 				764AB414225B19F400AD46E6 /* MD5DataSigner.m in Sources */,
@@ -728,31 +847,38 @@
 				76190C4B22573FE900FA944F /* LLHomeViewController.m in Sources */,
 				76190C4E22573FF900FA944F /* LLUserViewController.m in Sources */,
 				764AB2E1225B157000AD46E6 /* NSString+LLTools.m in Sources */,
+				76BF545222621B0700C424BB /* LLChatPrivateTableViewCell.m in Sources */,
+				763BA7E22264CCF3007F673B /* LLEditInfoViewController.m in Sources */,
 				764AB2DE2259B92D00AD46E6 /* UIDevice+LLTools.m in Sources */,
 				764AB3B2225B19E200AD46E6 /* Base64.m in Sources */,
 				76190C4222573EB800FA944F /* LLBaseViewController.m in Sources */,
 				764AB22F225743F000AD46E6 /* AppDelegate.m in Sources */,
+				76BF545B2263611700C424BB /* LLTagExampleListResponseModel.m in Sources */,
 				764AB426225B601F00AD46E6 /* MBProgressHUD+LLTools.m in Sources */,
 				76190C3022573DBB00FA944F /* main.m in Sources */,
 				764AB26A22598BE500AD46E6 /* Order.m in Sources */,
 				76190C4822573F3300FA944F /* LLTabBarViewController.m in Sources */,
 				764AB418225B19F400AD46E6 /* DataVerifier.m in Sources */,
+				76BF545522635B5800C424BB /* LLSearchViewController.m in Sources */,
 				764AB41D225B1BEE00AD46E6 /* LLTagExampleListViewController.m in Sources */,
 				764AB2562258ACC000AD46E6 /* UILabel+LLTools.m in Sources */,
 				764AB2392257735800AD46E6 /* LLLoveTalkURLConfig.m in Sources */,
 				764AB2592258ACD100AD46E6 /* UIButton+LLTools.m in Sources */,
 				764AB232225744DF00AD46E6 /* LLTheme.m in Sources */,
 				764AB24D22577E0300AD46E6 /* UIView+LLTools.m in Sources */,
+				763BA7E52264D249007F673B /* LLPrivateViewController.m in Sources */,
 				764AB2532257815300AD46E6 /* LLHeaderCollectionReusableView.m in Sources */,
 				764AB26622598ACD00AD46E6 /* LLConfig.m in Sources */,
 				764AB416225B19F400AD46E6 /* NSDataEx.m in Sources */,
 				764AB23F2257771900AD46E6 /* LLChatContainerViewController.m in Sources */,
 				764AB420225B41AD00AD46E6 /* LLChatListViewController.m in Sources */,
 				764AB2D822599FAC00AD46E6 /* TDOrderForWeiXin.m in Sources */,
+				76BF545E2263624F00C424BB /* LLExampleTableViewCell.m in Sources */,
 				764AB413225B19F400AD46E6 /* openssl_wrapper.m in Sources */,
 				764AB25C2258C5E100AD46E6 /* LLNavigationBar.m in Sources */,
 				764AB2442257786300AD46E6 /* LLTransitionContainerViewController.m in Sources */,
 				76190C3D22573E6100FA944F /* LLUser.m in Sources */,
+				7628BC54225F8622003B7401 /* LLHomeListResponseModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,7 +1004,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7SM84BABGX;
+				DEVELOPMENT_TEAM = RYMDA537T6;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = LLLoveTalk/LLLoveTalk.pch;
 				HEADER_SEARCH_PATHS = (
@@ -903,7 +1030,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LLLoveTalk/MainCode/Pay/AliPay/Demo",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lifuqing.LLLoveTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -916,7 +1043,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7SM84BABGX;
+				DEVELOPMENT_TEAM = RYMDA537T6;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = LLLoveTalk/LLLoveTalk.pch;
 				HEADER_SEARCH_PATHS = (
@@ -941,7 +1069,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LLLoveTalk/MainCode/Pay/AliPay/Demo",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lifuqing.LLLoveTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -19,6 +19,7 @@
 
 + (instancetype)buttonWithFrame:(CGRect)frame target:(id)target normalImage:(UIImage *)normalImage title:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor selector:(SEL)selector; {
     UIButton *button = [[self class] buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
     if (title.length > 0) {
         [button setTitle:title forState:UIControlStateNormal];
         button.titleLabel.font = font;

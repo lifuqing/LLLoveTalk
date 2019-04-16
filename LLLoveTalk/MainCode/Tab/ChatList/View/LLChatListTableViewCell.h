@@ -6,6 +6,7 @@
 //
 
 #import "LLBaseTableViewCell.h"
+#import "LLChatListResponseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

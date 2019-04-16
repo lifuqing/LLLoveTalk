@@ -18,7 +18,7 @@
     if (self) {
         NSMutableDictionary *textAtts = [NSMutableDictionary dictionary];
         textAtts[NSForegroundColorAttributeName]= LLTheme.navigationTitleColor;//设置文字颜色
-        textAtts[NSFontAttributeName] = [UIFont systemFontOfSize:18];//设置文字大小
+        textAtts[NSFontAttributeName] = LLTheme.navigationTitleFont;//设置文字大小
         self.navigationBar.translucent = NO;
         self.navigationBar.barTintColor = LLTheme.navigationTintColor;
         [self.navigationBar setTitleTextAttributes:textAtts];

@@ -7,6 +7,9 @@
 
 #import "LLChatListViewController.h"
 #import "LLChatListTableViewCell.h"
+#import "LLChatPrivateTableViewCell.h"
+#import "LLBuyVipViewController.h"
+#import "LLLoginViewController.h"
 
 @interface LLChatListViewController () <LLContainerListDelegate>
 
@@ -17,6 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.listDelegate = self;
+        _chatListType = EChatListTypeJiaoXue;
     }
     return self;
 }
@@ -24,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor blueColor];
+    [self requestData];
 }
 
 #pragma mark - public
@@ -40,7 +44,7 @@
 
 ///列表请求在URLConfig里面的Parser唯一标识
 - (nonnull NSString *)requestListParserForListController:(nonnull LLContainerListViewController *)listController {
-    return @"ChatListParser";
+    return self.chatListType == EChatListTypeJieXi ? @"LoveListParser" : @"ChatListParser";
 }
 
 ///parser所在的urlconfig类
@@ -55,16 +59,47 @@
 
 ///内容行高，如果用约束实现cell高度动态计算，return UITableViewAutomaticDimension即可
 - (CGFloat)listController:(nonnull LLContainerListViewController *)listController rowHeightAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    return 100;
+    LLChatItemModel *model = self.listArray[indexPath.row];
+    if (model.hide) {
+        return [LLChatListTableViewCell cellHeightWithModel:model];
+    }
+    return [LLChatPrivateTableViewCell cellHeightWithModel:model];
 }
 
 ///内容视图Class。默认为UITableViewCell。
 - (nullable Class)listController:(nonnull LLContainerListViewController *)listController cellClassAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    LLChatItemModel *model = self.listArray[indexPath.row];
+    if (model.hide) {
+        return [LLChatPrivateTableViewCell class];
+    }
     return [LLChatListTableViewCell class];
 }
 
 ///复用内容视图
-- (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull UITableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
-    cell.backgroundColor = [UIColor redColor];
+- (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull LLChatListTableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
+    cell.model = self.listArray[indexPath.row];
 }
+
+- (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {
+    LLChatItemModel *model = self.listArray[indexPath.row];
+    if (model.hide) {
+        if ([LLUser sharedInstance].isLogin) {
+            if (![LLUser sharedInstance].ispaid) {
+                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+                [LLNav pushViewController:vc animated:YES];
+            }
+        }
+        else {
+            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+    }
+    else {
+        LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
+        vc.chatListType = self.chatListType;
+        [LLNav pushViewController:vc animated:YES];
+    }
+    
+}
+
 @end

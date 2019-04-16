@@ -11,7 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LLTheme : NSObject
 + (UIColor *)mainColor;
++ (UIColor *)auxiliaryColor;
++ (UIColor *)searchBGColor;
++ (UIColor *)mainBackgroundColor;
 
++ (UIColor *)titleColor;
++ (UIColor *)subTitleColor;
 @end
 
 @interface LLTheme (TabBar)
@@ -28,4 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface LLTheme (Font)
++ (UIFont *)navigationTitleFont;
+
+@end
 NS_ASSUME_NONNULL_END

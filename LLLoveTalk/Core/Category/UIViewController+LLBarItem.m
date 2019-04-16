@@ -9,13 +9,21 @@
 
 @implementation UIViewController (LLBarItem)
 - (void)addBackBarItemWithTitle:(NSString *)title {
-    [self createBackBarItem];
-    [self addTitleToNavBar:title];
+    [self createBackBarItemWithImage:LLImage(@"btn_nav_back")];
+    if (title) {
+        [self addTitleToNavBar:title];
+    }
+}
+- (void)addCloseBarItemWithTitle:(NSString *)title {
+    
+    [self createBackBarItemWithImage:LLImage(@"btn_nav_close")];
+    if (title) {
+        [self addTitleToNavBar:title];
+    }
 }
 
-- (void)createBackBarItem {
+- (void)createBackBarItemWithImage:(UIImage *)image {
     //左侧按钮
-    UIImage *image = [UIImage imageNamed:@"btn_fanhui"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 30, 30);
     [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -(25-image.size.width), 0, 0)];
@@ -29,7 +37,8 @@
 - (void)commonPushBack {
     if (self.navigationController && self.navigationController.viewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
-    } else if (self.presentedViewController != nil) {
+    }
+    else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

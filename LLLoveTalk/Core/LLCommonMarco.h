@@ -22,8 +22,10 @@ NO)
 #define NormalTabBarHeight                  49.0f
 #define NormalNavBarHeight                  44.0f
 
-#define SafeNavBarHeight (IS_IPhoneXSeries ? (44 + NormalNavBarHeight) : NormalNavBarHeight)
+
+#define SafeNavgBarAreaTop   (IS_IPhoneXSeries ? 44 : 0)
 #define SafeBottomAreaHeight (IS_IPhoneXSeries ? 34 : 0)
+#define SafeNavBarHeight (SafeNavgBarAreaTop + NormalNavBarHeight)
 #define SafeTabBarHeight (SafeBottomAreaHeight + NormalTabBarHeight)
 
 

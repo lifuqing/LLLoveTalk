@@ -21,7 +21,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         LLChatListViewController *v1 = [[LLChatListViewController alloc] init];
+        v1.chatListType = EChatListTypeJiaoXue;
         LLChatListViewController *v2 = [[LLChatListViewController alloc] init];
+        v2.chatListType = EChatListTypeJieXi;
         
         _container = [[LLTransitionContainerViewController alloc] initWithViewControllers:@[v1, v2] defaultSelectIndex:0];
         [self addChildViewController:_container];
@@ -43,8 +45,12 @@
     if (!_segment) {
         _segment = [[SPPageMenu alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40) trackerStyle:SPPageMenuTrackerStyleLine];
         _segment.delegate = self;
+        _segment.selectedItemTitleColor = LLTheme.mainColor;
+        _segment.unSelectedItemTitleColor = LLTheme.mainColor;
+        _segment.itemTitleFont = [UIFont systemFontOfSize:19];
+        _segment.tracker.backgroundColor = LLTheme.mainColor;
         _segment.permutationWay = SPPageMenuPermutationWayNotScrollEqualWidths;
-        [_segment setItems:@[@"恋爱话术", @"吭哧瘪肚"] selectedItemIndex:0];
+        [_segment setItems:@[@"聊天教学", @"恋爱解析"] selectedItemIndex:0];
     }
     return _segment;
 }

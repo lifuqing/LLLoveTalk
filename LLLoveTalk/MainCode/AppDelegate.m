@@ -21,6 +21,15 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
+    [self configUI];
+    
+    [self delayRunSometing];
+    
+    return YES;
+}
+
+- (void)configUI {
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -29,7 +38,10 @@
     
     [self.window makeKeyAndVisible];
     
-    return YES;
+}
+
+- (void)delayRunSometing {
+    [[LLUser sharedInstance] fetchUserInfoCompletion:nil];
 }
 
 

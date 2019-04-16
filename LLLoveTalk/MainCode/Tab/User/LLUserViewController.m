@@ -7,8 +7,14 @@
 
 #import "LLUserViewController.h"
 #import "LLLoginViewController.h"
+#import "LLUserTableViewCell.h"
+#import "LLEditInfoViewController.h"
+#import "LLPrivateViewController.h"
+#import "LLBuyVipViewController.h"
 
-@interface LLUserViewController ()
+@interface LLUserViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *listTableView;
 
 @end
 
@@ -16,23 +22,121 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
     [self addTitleToNavBar:self.title];
+    [self.listTableView reloadData];
+    [self.view addSubview:self.listTableView];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        LLLoginViewController *login = [[LLLoginViewController alloc] init];
-        [self presentViewController:login animated:YES completion:nil];
-    });
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotification:) name:kUserInfoChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginStateChangedNotification:) name:kUserLoginStateChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVIPChangedNotification:) name:kUserVIPChangedNotification object:nil];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-*/
+
+- (void)userInfoChangedNotification:(NSNotification *)notify {
+    [self.listTableView reloadData];
+}
+
+- (void)userLoginStateChangedNotification:(NSNotification *)notify {
+    [self.listTableView reloadData];
+}
+
+- (void)userVIPChangedNotification:(NSNotification *)notify {
+    [self.listTableView reloadData];
+}
+
+- (UITableView *)listTableView {
+    if (!_listTableView) {
+        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _listTableView.dataSource = self;
+        _listTableView.delegate = self;
+        _listTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        _listTableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        
+        if (@available(iOS 11, *)) {
+            _listTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _listTableView.estimatedRowHeight = 0;
+            _listTableView.estimatedSectionHeaderHeight = 0;
+            _listTableView.estimatedSectionFooterHeight = 0;
+        }
+        [_listTableView registerClass:[LLUserTableViewCell class] forCellReuseIdentifier:@"LLUserTableViewCellIdentifier"];
+    }
+    return _listTableView;
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [LLUserTableViewCell cellHeightWithModel:nil];
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    LLUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LLUserTableViewCellIdentifier"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row == 0) {
+        cell.thumbView.image = LLImage(@"my_user");
+        NSString *str = @"";
+        if ([LLUser sharedInstance].phone.length > 7) {
+            str = [[LLUser sharedInstance].username stringByAppendingFormat:@"-%@", [[LLUser sharedInstance].phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"]];
+        }
+        cell.titleLabel.text = [LLUser sharedInstance].isLogin ? str : @"请点击登录";
+    }
+    else if (indexPath.row == 1) {
+        cell.thumbView.image = LLImage(@"my_vip");
+        cell.titleLabel.text = @"升级高级用户";
+        cell.descLabel.text = [LLUser sharedInstance].ispaid ? [NSString stringWithFormat:@"会员剩余%ld天", [LLUser sharedInstance].remaindays] : @"";
+    }
+    else if (indexPath.row == 2) {
+        cell.thumbView.image = LLImage(@"my_edit_info");
+        cell.titleLabel.text = @"修改个人资料";
+    }
+    else if (indexPath.row == 3) {
+        cell.thumbView.image = LLImage(@"my_private");
+        cell.titleLabel.text = @"隐私政策";
+    }
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        if (![LLUser sharedInstance].isLogin) {
+            LLLoginViewController *login = [[LLLoginViewController alloc] init];
+            [self presentViewController:login animated:YES completion:nil];
+        }
+        else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *confrim = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[LLUser sharedInstance] logout];
+            }];
+            [alert addAction:actionCancel];
+            [alert addAction:confrim];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }
+    }
+    else if (indexPath.row == 1) {
+        LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
+    }
+    else if (indexPath.row == 2) {
+        LLEditInfoViewController *vc = [[LLEditInfoViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
+    }
+    else if (indexPath.row == 3) {
+        LLPrivateViewController *vc = [[LLPrivateViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
+    }
+}
 
 @end

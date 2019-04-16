@@ -19,27 +19,32 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = LLTheme.navigationTintColor;
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.backButton.frame = CGRectMake(0, 0, self.height, self.height);
-    self.titleLabel.frame = CGRectMake(self.backButton.right, (self.height - 20)/2.0, self.width - self.backButton.right, 20);
+    CGFloat top = SafeNavgBarAreaTop;
+    self.backButton.frame = CGRectMake(8, top + (SafeNavBarHeight - top - 30)/2.0, 30, 30);
+    self.titleLabel.frame = CGRectMake(self.backButton.right, top + ((self.height - top) - 20)/2.0, self.width - self.backButton.right * 2, 20);
 }
 
-- (void)addTopBackBlock:(dispatch_block_t)backBlock title:(NSString *)title {
+- (void)addTopBackBlock:(dispatch_block_t)backBlock title:(nullable NSString *)title {
     _backBlock = [backBlock copy];
     [self addSubview:self.backButton];
+    [self.backButton setImage:LLImage(@"btn_nav_back") forState:UIControlStateNormal];
     if (title) {
         [self addSubview:self.titleLabel];
         self.titleLabel.text = title;
     }
 }
 
-- (void)addTopCloseBlock:(dispatch_block_t)closeBlock title:(NSString *)title {
+- (void)addTopCloseBlock:(dispatch_block_t)closeBlock title:(nullable NSString *)title {
     _backBlock = [closeBlock copy];
+    [self addSubview:self.backButton];
+    [self.backButton setImage:LLImage(@"btn_nav_close") forState:UIControlStateNormal];
     if (title) {
         [self addSubview:self.titleLabel];
         self.titleLabel.text = title;
@@ -54,14 +59,15 @@
 
 - (UIButton *)backButton {
     if (!_backButton) {
-        _backButton = [UIButton buttonWithFrame:CGRectZero target:self normalImage:LLImage(@"") selector:@selector(backButtonActionClick:)];
+        _backButton = [UIButton buttonWithFrame:CGRectZero target:self normalImage:LLImage(@"btn_fanhui") selector:@selector(backButtonActionClick:)];
     }
     return _backButton;
 }
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:18] textColor:[UIColor redColor] textAlign:NSTextAlignmentCenter];
+        _titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:LLTheme.navigationTitleFont textColor:LLTheme.navigationTitleColor textAlign:NSTextAlignmentCenter];
+        _titleLabel.backgroundColor = LLTheme.navigationTintColor;
     }
     return _titleLabel;
 }

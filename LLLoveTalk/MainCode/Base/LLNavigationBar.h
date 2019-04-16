@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LLNavigationBar : UIView
 
-- (void)addTopBackBlock:(dispatch_block_t)backBlock title:(NSString *)title;
-- (void)addTopCloseBlock:(dispatch_block_t)closeBlock title:(NSString *)title;
+- (void)addTopBackBlock:(dispatch_block_t)backBlock title:(nullable NSString *)title;
+- (void)addTopCloseBlock:(dispatch_block_t)closeBlock title:(nullable NSString *)title;
 @end
 
 NS_ASSUME_NONNULL_END

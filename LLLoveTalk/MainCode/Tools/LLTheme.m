@@ -10,7 +10,27 @@
 @implementation LLTheme
 
 + (UIColor *)mainColor {
-    return [UIColor orangeColor];
+    return RGB(220, 89, 119);
+}
+
++ (UIColor *)auxiliaryColor {
+    return RGB(244, 222, 227);
+}
+
++ (UIColor *)searchBGColor {
+    return RGB(233, 188, 204);
+}
+
++ (UIColor *)mainBackgroundColor {
+    return [UIColor whiteColor];
+}
+
++ (UIColor *)titleColor {
+    return RGB(89, 87, 87);
+}
+
++ (UIColor *)subTitleColor {
+    return RGBS(137);
 }
 @end
 
@@ -20,10 +40,10 @@
     return [UIColor whiteColor];
 }
 + (UIColor *)tabbarNormalColor {
-    return [UIColor grayColor];
+    return [self mainColor];
 }
 + (UIColor *)tabbarSelectedColor {
-    return [UIColor orangeColor];
+    return [self mainColor];
 }
 
 @end
@@ -35,6 +55,13 @@
 }
 
 + (UIColor *)navigationTintColor {
-    return [UIColor purpleColor];
+    return [self mainColor];
 }
 @end
+
+@implementation LLTheme (Font)
++ (UIFont *)navigationTitleFont {
+    return [UIFont boldSystemFontOfSize:18];
+}
+@end
+

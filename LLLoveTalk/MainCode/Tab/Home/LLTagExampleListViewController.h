@@ -5,11 +5,14 @@
 //  Created by lifuqing on 2019/4/8.
 //
 
-#import "LLBaseViewController.h"
+#import "LLContainerListViewController.h"
+#import "LLHomeListResponseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LLTagExampleListViewController : LLBaseViewController
+@interface LLTagExampleListViewController : LLContainerListViewController
+
+- (instancetype)initWithItem:(LLTagResponseModel *)item;
 
 @end
 

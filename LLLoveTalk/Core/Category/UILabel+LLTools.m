@@ -13,6 +13,7 @@
     UILabel *label = [[[self class] alloc ] initWithFrame:frame];
     label.backgroundColor = [UIColor clearColor];
     label.text = text;
+    label.textColor = textColor;
     label.font = font;
     label.textAlignment = align;
     return label;

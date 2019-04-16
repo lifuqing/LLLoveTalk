@@ -7,6 +7,7 @@
 
 #import "LLTagCollectionViewCell.h"
 #import "UILabel+LLTools.h"
+#import "LLHomeListResponseModel.h"
 
 @interface LLTagCollectionViewCell ()
 
@@ -19,8 +20,10 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor lightGrayColor];
-        self.titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:15] textColor:[UIColor blackColor] textAlign:NSTextAlignmentCenter];
+        self.backgroundColor = [UIColor clearColor];
+        self.layer.cornerRadius = 4;
+        self.layer.masksToBounds = YES;
+        self.titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:14] textColor:RGB(114, 113, 113) textAlign:NSTextAlignmentCenter];
         
         [self addSubview:self.titleLabel];
     }
@@ -35,6 +38,7 @@
 
 - (void)setModel:(id)model {
     [super setModel:model];
-    self.titleLabel.text = model;
+    LLTagResponseModel *item = model;
+    self.titleLabel.text = item.catename;
 }
 @end

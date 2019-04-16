@@ -36,17 +36,17 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         LLHomeViewController *vc1 = [[LLHomeViewController alloc] init];
-        vc1.title = @"恋爱话术惯例";
+        vc1.title = @"恋爱宝典";
         LLChatContainerViewController *vc2 = [[LLChatContainerViewController alloc] init];
         vc2.title = @"聊天实战";
         LLUserViewController *vc3 = [[LLUserViewController alloc] init];
         vc3.title = @"我的";
         
-        LLBaseNavigationController *nav1 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc1 title:vc1.title image:nil selectedImage:nil]];
+        LLBaseNavigationController *nav1 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc1 title:vc1.title image:LLImage(@"tab_home_normal") selectedImage:LLImage(@"tab_home_selected")]];
         
-        LLBaseNavigationController *nav2 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc2 title:vc2.title image:nil selectedImage:nil]];
+        LLBaseNavigationController *nav2 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc2 title:vc2.title image:LLImage(@"tab_chat_normal") selectedImage:LLImage(@"tab_chat_selected")]];
         
-        LLBaseNavigationController *nav3 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc3 title:vc3.title image:nil selectedImage:nil]];
+        LLBaseNavigationController *nav3 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc3 title:vc3.title image:LLImage(@"tab_my_normal") selectedImage:LLImage(@"tab_my_selected")]];
         
         
         self.viewControllers = @[nav1, nav2, nav3];

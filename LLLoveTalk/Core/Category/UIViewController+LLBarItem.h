@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**只有图片的按钮*/
 - (void)addBackBarItemWithTitle:(NSString *)title;
 
+- (void)addCloseBarItemWithTitle:(NSString *)title;
+
 //增加导航栏标题
 - (void)addTitleToNavBar:(NSString *)title;
 
