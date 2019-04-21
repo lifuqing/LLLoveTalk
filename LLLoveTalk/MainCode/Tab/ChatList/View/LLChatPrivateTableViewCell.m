@@ -28,12 +28,12 @@
         self.backgroundColor = [UIColor clearColor];
         self.thumbView = [[UIImageView alloc] initWithImage:LLImage(@"icon_chat_private")];
         
-        self.titleLabel = [UILabel labelWithFrame:CGRectZero text:@"※※※※请点击查看※※※※" font:[UIFont systemFontOfSize:16] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
+        self.titleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"※※※※请点击查看※※※※" font:[UIFont systemFontOfSize:16] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
         
-        self.subTitleLabel1 = [UILabel labelWithFrame:CGRectZero text:@"※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※" font:[UIFont systemFontOfSize:12] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentCenter];
+        self.subTitleLabel1 = [UILabel ll_labelWithFrame:CGRectZero text:@"※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※" font:[UIFont systemFontOfSize:12] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentCenter];
         self.subTitleLabel1.lineBreakMode = NSLineBreakByWordWrapping;
         
-        self.subTitleLabel2 = [UILabel labelWithFrame:CGRectZero text:@"※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※" font:[UIFont systemFontOfSize:14] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentCenter];
+        self.subTitleLabel2 = [UILabel ll_labelWithFrame:CGRectZero text:@"※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※" font:[UIFont systemFontOfSize:14] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentCenter];
         self.subTitleLabel2.lineBreakMode = NSLineBreakByCharWrapping;
         
         self.line = [[UIView alloc] initWithFrame:CGRectZero];

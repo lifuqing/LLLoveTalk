@@ -27,10 +27,10 @@
         self.backgroundColor = [UIColor clearColor];
         self.thumbView = [[UIImageView alloc] initWithImage:LLImage(@"icon_chat_thumb1")];
         
-        self.titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:14] textColor:LLTheme.titleColor textAlign:NSTextAlignmentLeft];
+        self.titleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:14] textColor:LLTheme.titleColor textAlign:NSTextAlignmentLeft];
         self.titleLabel.numberOfLines = 2;
 
-        self.subTitleLabel = [UILabel labelWithFrame:CGRectZero text:@"聊天案例" font:[UIFont systemFontOfSize:12] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentLeft];
+        self.subTitleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"聊天案例" font:[UIFont systemFontOfSize:12] textColor:LLTheme.subTitleColor textAlign:NSTextAlignmentLeft];
         
         self.line = [[UIView alloc] initWithFrame:CGRectZero];
         self.line.backgroundColor = LLTheme.mainColor;

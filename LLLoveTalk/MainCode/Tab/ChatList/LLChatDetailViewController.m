@@ -32,11 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBackBarItemWithTitle:@"恋爱话术"];
+    [self addBackBarItemWithTitle:self.chatListType == EChatListTypeJieXi ? @"恋爱解析" : @"聊天教学"];
+    self.listTableView.contentInset = UIEdgeInsetsMake(0, 0, SafeBottomAreaHeight, 0);
     [self requestData];
 }
 
-///列表请求在URLConfig里面的Parser唯一标识
+///列表请求在URLConfihg里面的Parser唯一标识
 - (nonnull NSString *)requestListParserForListController:(nonnull LLContainerListViewController *)listController {
     return self.chatListType == EChatListTypeJieXi ? @"LoveDetailParser" : @"ChatDetailParser";
 }
@@ -68,6 +69,10 @@
 
 ///复用内容视图
 - (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull LLChatDetailTableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
+    WEAKSELF();
+    cell.imageDownloadFinishBlock = ^{
+        [weakSelf.listTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    };
     cell.model = self.listArray[indexPath.row];
 }
 @end

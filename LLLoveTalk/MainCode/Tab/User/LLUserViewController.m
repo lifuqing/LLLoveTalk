@@ -71,7 +71,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return [LLUser sharedInstance].isLogin ? 4 : 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,6 +81,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LLUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LLUserTableViewCellIdentifier"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.descLabel.text = @"";
     if (indexPath.row == 0) {
         cell.thumbView.image = LLImage(@"my_user");
         NSString *str = @"";
@@ -89,16 +90,22 @@
         }
         cell.titleLabel.text = [LLUser sharedInstance].isLogin ? str : @"请点击登录";
     }
-    else if (indexPath.row == 1) {
+    else if ([LLUser sharedInstance].isLogin && indexPath.row == 1) {
         cell.thumbView.image = LLImage(@"my_vip");
-        cell.titleLabel.text = @"升级高级用户";
-        cell.descLabel.text = [LLUser sharedInstance].ispaid ? [NSString stringWithFormat:@"会员剩余%ld天", [LLUser sharedInstance].remaindays] : @"";
+        if ([LLUser sharedInstance].isSuperVIP) {
+            cell.titleLabel.text = @"您已是永久会员";
+            cell.descLabel.text = @"无限期";
+        }
+        else {
+            cell.titleLabel.text = @"升级高级用户";
+            cell.descLabel.text = [LLUser sharedInstance].ispaid ? [NSString stringWithFormat:@"会员剩余%ld天", (long)[LLUser sharedInstance].remaindays] : @"";
+        }
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == ([LLUser sharedInstance].isLogin ? 2 : 1)) {
         cell.thumbView.image = LLImage(@"my_edit_info");
         cell.titleLabel.text = @"修改个人资料";
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == ([LLUser sharedInstance].isLogin ? 3 : 2)) {
         cell.thumbView.image = LLImage(@"my_private");
         cell.titleLabel.text = @"隐私政策";
     }
@@ -114,26 +121,33 @@
             [self presentViewController:login animated:YES completion:nil];
         }
         else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *confrim = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[LLUser sharedInstance] logout];
+            [UIAlertController ll_showAlertWithTarget:self title:@"提示" message:@"您确定要退出登录？" cancelTitle:@"取消" otherTitles:@[@"确定"] completion:^(NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [[LLUser sharedInstance] logout];
+                }
             }];
-            [alert addAction:actionCancel];
-            [alert addAction:confrim];
-            [self presentViewController:alert animated:YES completion:nil];
-            
         }
     }
-    else if (indexPath.row == 1) {
-        LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-        [LLNav pushViewController:vc animated:YES];
+    else if ([LLUser sharedInstance].isLogin && indexPath.row == 1) {
+        if ([LLUser sharedInstance].isSuperVIP) {
+            [UIAlertController ll_showAlertWithTarget:self title:@"提示" message:@"您已是永久会员，可以使用全部功能" cancelTitle:@"好的" otherTitles:nil completion:nil];
+        }
+        else {
+            LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+            [LLNav pushViewController:vc animated:YES];
+        }
     }
-    else if (indexPath.row == 2) {
-        LLEditInfoViewController *vc = [[LLEditInfoViewController alloc] init];
-        [LLNav pushViewController:vc animated:YES];
+    else if (indexPath.row == ([LLUser sharedInstance].isLogin ? 2 : 1)) {
+        if ([LLUser sharedInstance].isLogin) {
+            LLEditInfoViewController *vc = [[LLEditInfoViewController alloc] init];
+            [LLNav pushViewController:vc animated:YES];
+        }
+        else {
+            LLLoginViewController *login = [[LLLoginViewController alloc] init];
+            [self presentViewController:login animated:YES completion:nil];
+        }
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == ([LLUser sharedInstance].isLogin ? 3 : 2)) {
         LLPrivateViewController *vc = [[LLPrivateViewController alloc] init];
         [LLNav pushViewController:vc animated:YES];
     }

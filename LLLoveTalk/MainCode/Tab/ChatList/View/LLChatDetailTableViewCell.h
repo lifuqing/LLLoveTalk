@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LLChatDetailTableViewCell : LLBaseTableViewCell
-
+@property (nonatomic, copy) dispatch_block_t imageDownloadFinishBlock;
 @end
 
 NS_ASSUME_NONNULL_END

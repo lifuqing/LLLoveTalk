@@ -6,6 +6,7 @@
 //
 
 #import "LLUserTableViewCell.h"
+
 @interface LLUserTableViewCell ()
 @property (nonatomic, strong) UIView *bgView;
 @end
@@ -26,9 +27,9 @@
         
         self.thumbView = [[UIImageView alloc] initWithFrame:CGRectZero];
         
-        self.titleLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont boldSystemFontOfSize:16] textColor:LLTheme.titleColor textAlign:NSTextAlignmentLeft];
+        self.titleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"" font:[UIFont boldSystemFontOfSize:16] textColor:LLTheme.titleColor textAlign:NSTextAlignmentLeft];
         
-        self.descLabel = [UILabel labelWithFrame:CGRectZero text:@"" font:[UIFont boldSystemFontOfSize:16] textColor:RGB(220, 89, 119) textAlign:NSTextAlignmentRight];
+        self.descLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"" font:[UIFont boldSystemFontOfSize:16] textColor:RGB(220, 89, 119) textAlign:NSTextAlignmentRight];
         
         [self addSubview:self.bgView];
         [self addSubview:self.thumbView];

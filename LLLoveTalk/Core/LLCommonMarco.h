@@ -10,6 +10,8 @@
 
 #define LLImage(name) [UIImage imageNamed:(name)]
 
+#define DLog( s, ... )     { if([[LLConfig sharedInstance] isNeedLog]) { NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] ); } }
+
 #define IS_IPhoneXSeries ([UIScreen instancesRespondToSelector:@selector(currentMode)] ?\
 (\
 CGSizeEqualToSize(CGSizeMake(375, 812),[UIScreen mainScreen].bounds.size)\
@@ -29,10 +31,9 @@ NO)
 #define SafeTabBarHeight (SafeBottomAreaHeight + NormalTabBarHeight)
 
 
-#define StatusBarHeight                     [UIApplication sharedApplication].statusBarFrame.size.height
-#define ViewCtrlTopBarHeight                (SafeNavBarHeight + StatusBarHeight)
-#define TabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define NormalStatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
 
+#define SafeStatusBarHeight (20 - NormalStatusBarHeight)
 
 #define RGB(r, g, b)                        [UIColor colorWithRed:(r)/255.f green:(g)/255.f blue:(b)/255.f alpha:1.f]
 #define RGBA(r, g, b, a)                    [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]

@@ -24,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Server
 @property(nonatomic, copy)NSString *server;
-@property(nonatomic, copy)NSString *userServer;
+
+/// IAP shareSecret
+@property (nonatomic, copy) NSString *shareSecret;
 
 //新浪微博
 @property(nonatomic, copy)NSString *sinaWBAppId;

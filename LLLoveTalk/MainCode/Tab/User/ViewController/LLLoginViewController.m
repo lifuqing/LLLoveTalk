@@ -53,6 +53,7 @@
 }
 
 - (void)loginButtonActionClick:(UIButton *)sender {
+    [self.view endEditing:NO];
     sender.enabled = NO;
     WEAKSELF();
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -128,7 +129,7 @@
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
         _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
         _phoneTextField.leftView = leftView;
-        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
     
         
         [bg1 addSubview:userIcon];
@@ -148,10 +149,10 @@
         UIView *leftView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
         _codeTextField.leftViewMode = UITextFieldViewModeAlways;
         _codeTextField.leftView = leftView2;
-        _codeTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _codeTextField.keyboardType = UIKeyboardTypePhonePad;
 
         
-        _sendCodeButton = [UIButton buttonWithFrame:CGRectMake(bg2.width - 20 - 97, (bg2.height - 25)/2.0, 97, 25) target:self title:@"发送验证码" font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor] selector:@selector(sendCodeButtonActionClick:)];
+        _sendCodeButton = [UIButton ll_buttonWithFrame:CGRectMake(bg2.width - 20 - 97, (bg2.height - 25)/2.0, 97, 25) target:self title:@"发送验证码" font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor] selector:@selector(sendCodeButtonActionClick:)];
         [_sendCodeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         _sendCodeButton.backgroundColor = LLTheme.mainColor;
         _sendCodeButton.layer.cornerRadius = 6;
@@ -170,7 +171,7 @@
 
 - (UIButton *)loginButton {
     if (!_loginButton) {
-        _loginButton = [UIButton buttonWithFrame:CGRectMake(15, _contentView.bottom + 37, self.view.width - 30, 37) target:self title:@"登录" font:[UIFont systemFontOfSize:19] textColor:[UIColor whiteColor] selector:@selector(loginButtonActionClick:)];
+        _loginButton = [UIButton ll_buttonWithFrame:CGRectMake(15, _contentView.bottom + 37, self.view.width - 30, 37) target:self title:@"登录" font:[UIFont systemFontOfSize:19] textColor:[UIColor whiteColor] selector:@selector(loginButtonActionClick:)];
         [_loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         _loginButton.backgroundColor = LLTheme.mainColor;
         _loginButton.layer.cornerRadius = 6;

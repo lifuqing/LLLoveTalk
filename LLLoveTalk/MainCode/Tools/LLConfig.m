@@ -26,19 +26,17 @@
 }
 
 - (NSDictionary *)configDictionary{
-    return @{@"debug"   : @{@"server"   : @"http://test1.e.kumi.cn",
-                            @"user"     : @"http://test1.e.kumi.cn",
+    return @{@"debug"   : @{@"server"   : @"http://apillbd.simache.com",
                             @"pid"          : @{@"iphone"   : @"appstore",
                                                 @"ipad"     : @"appstore_hd"},
-                            @"secret"   : @{@"iphone"   : @"kumi",
-                                            @"ipad"     : @"kumi"}
+                            @"secret"   : @{@"iphone"   : @"",
+                                            @"ipad"     : @""}
                             },
-             @"release" : @{@"server"   : @"http://e.kumi.cn",
-                            @"user"     : @"http://e.kumi.cn",
+             @"release" : @{@"server"   : @"http://apillbd.simache.com",
                             @"pid"          : @{@"iphone"   : @"appstore",
                                                 @"ipad"     : @"appstore_hd"},
-                            @"secret"   : @{@"iphone"   : @"kumi",
-                                            @"ipad"     : @"kumi"}
+                            @"secret"   : @{@"iphone"   : @"",
+                                            @"ipad"     : @""}
                             },
              @"share"   : @{@"sinaWB"   : @{@"secret"   : @"",
                                             @"appid"    : @""},
@@ -54,14 +52,15 @@
                             @"xg"       : @{@"appid"    : @"",
                                             @"appKey"   : @""},
                             },
-             @"pay"     : @{@"alipay"   : @{@"partnerid": @"2019041463858651",
-                                            @"sellerid" : @"tianningmengzfb@163.com",
-                                            @"key"      : @"MIICXAIBAAKBgQC1HI2DrmQZaZgXLIpDiGjs/ge6vcfsPcBgI/xaChqUnBgnyeJFCEKC7FHL3tVGr0ZyQSYh+sdo7kZKO/KCqjpZHokghCGMwbmSq9dTo4UQGEkC5qUlvYsKYgP+a+aFG+2ECvjFmqGU96jCTxZGl5UGotj2aZ08x2uKWSDjeVBfxwIDAQABAoGBAJqflfImoS9RB5hBXonpnCs5dj/oZxc6YVOzZW850RevbLALnDJzqtU8DVmRFWUTn4FMPdIk2LqtMzWNmK4Vx1l+JBUjW19iv84AP7Hx9y+hk3zrJqK5JTZalW3zXhDf1zBLVoFVmzWhipNjtGQzGvZh/Ehmtxb0BWbF50eywjgBAkEA547SJ7QNzn0DhxlghmNnXxbQob/3AW/3AxWrI9GbuHqWW6S/L/sF1ZGEiUoZC0RXdkLsbLM5qGXt2OVbNhiBQQJBAMg6kMw12NrvnduMA25ZEYOFqFsiLCxwp8JvyXfnNkORTuPuk8te/F7sd3dulcIyxeHB/PGRz2Meq+VD44EIFwcCQBtBYlcuCFn/uQST5hqrZKV6qAAB+m7+4NJKIKTMrUmflEchMyfQojUrNbB7OktrNehDpFR/HBBIPyDCjmPlqoECQASmZ4p2jay39+CLZeEALInzZq+HIaN+kkbPtcwVEIuNKlncxo3ojM/fif66ELxL1ZCioq8xhbF1muReKUBr4a0CQC5JGYSeLwPIZaEnKAyLTcAt2KzFZw991lhgpV8T6cKkAncrFCvszYmP87LeqExb4tb9URmnGPnpxCyMrG7ZLEY="
+             @"pay"     : @{@"alipay"   : @{@"partnerid": @"",
+                                            @"sellerid" : @"",
+                                            @"key"      : @""
                                             },
                             @"weixin"   : @{@"partnerid": @"",
                                             @"key"      : @""
                                             }
-                            }
+                            },
+             @"shareSecret": @"301ca6085dc34796a8f7dd6721e540e6"
              };
 }
 -(void)loadConfig
@@ -75,7 +74,6 @@
     self.secret = [[[dict objectForKey:mode] objectForKey:@"secret"] objectForKey:@"iphone"];
     
     self.server = [[dict objectForKey:mode] objectForKey:@"server"];
-    self.userServer = [[dict objectForKey:mode] objectForKey:@"user"];
     
     NSDictionary *share = [dict objectForKey:@"share"];
     
@@ -109,6 +107,7 @@
     
     self.weixinPartnerID = pay[@"weixin"][@"partnerid"];
     
+    self.shareSecret = dict[@"shareSecret"];
 }
 
 
@@ -124,10 +123,6 @@
 {
     _isDebug = isDebug;
     [self loadConfig];
-}
--(void)setIsNeedLog:(BOOL)isNeedLog
-{
-    _isNeedLog = isNeedLog;
 }
 
 

@@ -29,7 +29,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self requestData];
+
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginStateChangedNotification:) name:kUserLoginStateChangedNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVIPChangedNotification:) name:kUserVIPChangedNotification object:nil];
 }
+
+- (void)dealloc {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+//- (void)userLoginStateChangedNotification:(NSNotification *)notify {
+//    [self requestData];
+//}
+//
+//- (void)userVIPChangedNotification:(NSNotification *)notify {
+//    [self requestData];
+//}
 
 #pragma mark - public
 
@@ -52,6 +68,9 @@
     return [LLLoveTalkURLConfig class];
 }
 
+- (nullable NSDictionary *)requestListPargamsForListController:(nonnull LLContainerListViewController *)listController {
+    return @{@"phone":[LLUser sharedInstance].phone ?:@""};
+}
 /**
  * List Content
  * @brief 列表内容
@@ -82,22 +101,20 @@
 
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {
     LLChatItemModel *model = self.listArray[indexPath.row];
-    if (model.hide) {
-        if ([LLUser sharedInstance].isLogin) {
-            if (![LLUser sharedInstance].ispaid) {
-                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-                [LLNav pushViewController:vc animated:YES];
-            }
+    if ([LLUser sharedInstance].isLogin) {
+        if (![LLUser sharedInstance].ispaid) {
+            LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+            [LLNav pushViewController:vc animated:YES];
         }
         else {
-            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
+            LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
+            vc.chatListType = self.chatListType;
+            [LLNav pushViewController:vc animated:YES];
         }
     }
     else {
-        LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
-        vc.chatListType = self.chatListType;
-        [LLNav pushViewController:vc animated:YES];
+        LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     
 }

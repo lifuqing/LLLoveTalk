@@ -46,7 +46,7 @@
     
     _usernameTextField = usernameTextField;
     
-    _editButton = [UIButton buttonWithFrame:CGRectMake(15, bg1.bottom + 25, self.view.width - 30, 37) target:self title:@"修改" font:[UIFont systemFontOfSize:19] textColor:[UIColor whiteColor] selector:@selector(editButtonActionClick:)];
+    _editButton = [UIButton ll_buttonWithFrame:CGRectMake(15, bg1.bottom + 25, self.view.width - 30, 37) target:self title:@"修改" font:[UIFont systemFontOfSize:19] textColor:[UIColor whiteColor] selector:@selector(editButtonActionClick:)];
     [_editButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     _editButton.backgroundColor = LLTheme.mainColor;
     _editButton.layer.cornerRadius = 6;
@@ -68,12 +68,18 @@
 
 
 - (void)editButtonActionClick:(UIButton *)sender {
+    [self.view endEditing:NO];
     WEAKSELF();
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[LLUser sharedInstance] modifyUserName:_usernameTextField.text completion:^(BOOL success, NSString * _Nullable errorMsg) {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         [MBProgressHUD showMessage:errorMsg inView:weakSelf.view autoHideTime:1 interactionEnabled:YES completion:^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            if (success) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+                [weakSelf.usernameTextField becomeFirstResponder];
+            }
         }];
     }];
 }

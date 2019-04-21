@@ -9,11 +9,11 @@
 
 @implementation UIButton (LLTools)
 
-+ (instancetype)buttonWithFrame:(CGRect)frame target:(id)target normalImage:(UIImage *)normalImage selector:(SEL)selector {
++ (instancetype)ll_buttonWithFrame:(CGRect)frame target:(id)target normalImage:(UIImage *)normalImage selector:(SEL)selector {
     return [self buttonWithFrame:frame target:target normalImage:normalImage title:nil font:nil textColor:nil selector:selector];
 }
 
-+ (instancetype)buttonWithFrame:(CGRect)frame target:(id)target title:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor selector:(SEL)selector; {
++ (instancetype)ll_buttonWithFrame:(CGRect)frame target:(id)target title:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor selector:(SEL)selector; {
     return [self buttonWithFrame:frame target:target normalImage:nil title:title font:font textColor:textColor selector:selector];
 }
 

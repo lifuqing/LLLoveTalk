@@ -15,7 +15,6 @@
 #import "LLHomeListResponseModel.h"
 #import "LLSearchViewController.h"
 #import "LLLoginViewController.h"
-#import "LLBuyVipViewController.h"
 
 static NSString * const kHeaderIdentifier = @"kHeaderIdentifier";
 static NSString * const kCellIdentifier = @"kCellIdentifier";
@@ -39,6 +38,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;//view的底部是tabbar的顶部，不会被覆盖一部分
     self.view.backgroundColor = [UIColor whiteColor];
     [self addTitleToNavBar:self.title];
     [self.view addSubview:self.searchBar];
@@ -104,14 +104,8 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 #pragma mark - action
 - (void)searchButtonActionClick:(UIButton *)sender {
     if ([LLUser sharedInstance].isLogin) {
-        if ([LLUser sharedInstance].ispaid) {
-            LLSearchViewController *vc = [[LLSearchViewController alloc] init];
-            [LLNav pushViewController:vc animated:YES];
-        }
-        else {
-            LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-            [LLNav pushViewController:vc animated:YES];
-        }
+        LLSearchViewController *vc = [[LLSearchViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
     }
     else {
         LLLoginViewController *vc = [[LLLoginViewController alloc] init];
@@ -146,7 +140,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (UIView *)searchBar {
     if (!_searchBar) {
         _searchBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
-        UIButton *searchButton = [UIButton buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:@"搜索聊天话术" font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
+        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:@"搜索聊天话术" font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
         searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         searchButton.layer.cornerRadius = 8;
         searchButton.backgroundColor = [UIColor whiteColor];
@@ -181,7 +175,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
     LLHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderIdentifier forIndexPath:indexPath];
     [self configColorHeader:header cell:nil inSection:indexPath.section];
     LLHomeItemResponseModel *item = self.list[indexPath.section];
-    header.titleLabel.text = item.child[indexPath.item].catename;
+    header.titleLabel.text = item.fname;
     return header;
 }
 

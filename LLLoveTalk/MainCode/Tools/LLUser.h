@@ -18,7 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) NSString *phone;
 @property (nonatomic, copy, nullable) NSString *username;
+///付费用户
 @property (nonatomic, assign) BOOL ispaid;
+///永久会员
+@property (nonatomic, assign) BOOL isSuperVIP;
 @property (nonatomic, assign) NSInteger remaindays;
 
 + (instancetype)sharedInstance;
@@ -33,4 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchUserInfoCompletion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion;
 @end
 
+@interface LLUser (IAP)
+- (void)uploadBuyProductId:(NSString *)productId receiptBase64:(NSString *)receiptBase64 completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion;
+@end
 NS_ASSUME_NONNULL_END

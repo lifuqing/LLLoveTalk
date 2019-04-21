@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //运营商+国家代码
 - (NSString *)carrier;
-- (NSString *) localIPAddress;
+- (NSString *)localIPAddress;
 
 - (NSString *)defaultUserAgent;
 @end

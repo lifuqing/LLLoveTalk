@@ -5,11 +5,11 @@
 //  Created by lifuqing on 2019/4/14.
 //
 
-#import "LLBaseViewController.h"
+#import "LLContainerListViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LLSearchViewController : LLBaseViewController
+@interface LLSearchViewController : LLContainerListViewController
 
 @end
 

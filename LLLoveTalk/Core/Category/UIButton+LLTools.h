@@ -10,9 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (LLTools)
-+ (instancetype)buttonWithFrame:(CGRect)frame target:(id)target normalImage:(UIImage *)normalImage selector:(SEL)selector;
++ (instancetype)ll_buttonWithFrame:(CGRect)frame target:(id)target normalImage:(UIImage *)normalImage selector:(SEL)selector;
 
-+ (instancetype)buttonWithFrame:(CGRect)frame target:(id)target title:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor selector:(SEL)selector;;
++ (instancetype)ll_buttonWithFrame:(CGRect)frame target:(id)target title:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor selector:(SEL)selector;;
 @end
 
 NS_ASSUME_NONNULL_END

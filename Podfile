@@ -7,10 +7,9 @@ target 'LLLoveTalk' do
     pod 'AFNetworking'
     pod 'YYWebImage'
     pod 'SPPageMenu'
-    pod 'IAPHelper'
-    
+
     #SDK
-    pod 'AlipaySDK-iOS'
+    pod 'AliyunOSSiOS'
     
     pod 'MJRefresh'
     pod 'LLHttpEngine', :path=>'../LLHttpEngine'

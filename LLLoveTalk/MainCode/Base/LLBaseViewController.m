@@ -39,7 +39,7 @@
 
 - (LLNavigationBar *)navBar {
     if (!_navBar) {
-        _navBar = [[LLNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, SafeNavBarHeight)];
+        _navBar = [[LLNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, IS_IPhoneXSeries ? SafeNavBarHeight : (NormalNavBarHeight + NormalStatusBarHeight))];
     }
     return _navBar;
 }

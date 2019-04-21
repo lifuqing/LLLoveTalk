@@ -90,6 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Shortcut for frame.size
  */
 @property (nonatomic) CGSize size;
+
 @end
 
 NS_ASSUME_NONNULL_END

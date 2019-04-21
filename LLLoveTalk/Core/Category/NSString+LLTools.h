@@ -10,6 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (LLTools)
++ (NSString *)base64StringFromData:(NSData *)data;
+
 - (NSString *)sha1;
 - (NSString *)md5Digest;
 @end

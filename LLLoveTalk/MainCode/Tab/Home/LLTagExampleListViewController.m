@@ -14,6 +14,7 @@
 #import "LLBuyVipViewController.h"
 
 @interface LLTagExampleListViewController () <LLContainerListDelegate>
+@property (nonatomic, strong) UIView *header;
 @property (nonatomic, strong) UIView *searchBar;
 
 @property (nonatomic, strong) LLTagResponseModel *tagModel;
@@ -38,8 +39,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addBackBarItemWithTitle:_tagModel.catename];
+    [self.view addSubview:self.header];
+    
+    self.listTableView.contentInset = UIEdgeInsetsMake(0, 0, SafeBottomAreaHeight, 0);
+    
     [self requestData];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginStateChangedNotification:) name:kUserLoginStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userVIPChangedNotification:) name:kUserVIPChangedNotification object:nil];
 }
@@ -60,23 +65,20 @@
 
 #pragma mark - public
 
+- (void)refreshLayoutViews {
+    [super refreshLayoutViews];
+    self.listTableView.frame = CGRectMake(0, self.header.bottom, self.view.width, self.view.height - self.header.bottom);
+}
 #pragma mark - private
 - (void)requestListDataSuccessWithArray:(NSArray *)array {
     [super requestListDataSuccessWithArray:array];
-    self.listTableView.tableHeaderView = self.searchBar;
 }
 
 #pragma mark - action
 - (void)searchButtonActionClick:(UIButton *)sender {
     if ([LLUser sharedInstance].isLogin) {
-        if ([LLUser sharedInstance].ispaid) {
-            LLSearchViewController *vc = [[LLSearchViewController alloc] init];
-            [LLNav pushViewController:vc animated:YES];
-        }
-        else {
-            LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-            [LLNav pushViewController:vc animated:YES];
-        }
+        LLSearchViewController *vc = [[LLSearchViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
     }
     else {
         LLLoginViewController *vc = [[LLLoginViewController alloc] init];
@@ -85,11 +87,24 @@
 }
 
 #pragma mark - lazyloading
-
+- (UIView *)header {
+    if (!_header) {
+        _header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55+10+30+5)];
+        _header.backgroundColor = [UIColor whiteColor];
+        
+        [_header addSubview:self.searchBar];
+        
+        UILabel *label = [UILabel ll_labelWithFrame:CGRectMake(0, 55+10, self.view.width, 30) text:@"搭讪聊天约会调情，搜搜宝典全部搞定" font:[UIFont systemFontOfSize:12] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
+        label.backgroundColor = LLTheme.auxiliaryColor;
+        
+        [_header addSubview:label];
+    }
+    return _header;
+}
 - (UIView *)searchBar {
     if (!_searchBar) {
         _searchBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
-        UIButton *searchButton = [UIButton buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:@"搜索聊天话术" font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
+        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:@"搜索聊天话术" font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
         searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         searchButton.layer.cornerRadius = 8;
         searchButton.backgroundColor = [UIColor whiteColor];
@@ -146,6 +161,11 @@
 ///复用内容视图
 - (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull LLExampleTableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
     cell.model = self.listArray[indexPath.row];
+//    WEAKSELF();
+//    cell.longPressBlock = ^(LLTagExampleModel * _Nonnull item) {
+//        [MBProgressHUD showMessage:@"已复制到剪切板" inView:weakSelf.view autoHideTime:1];
+//        [[UIPasteboard generalPasteboard] setString:item.dialog];
+//    };
 }
 
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,6 +182,5 @@
             [self presentViewController:vc animated:YES completion:nil];
         }
     }
-    
 }
 @end
