@@ -94,7 +94,7 @@
         
         [_header addSubview:self.searchBar];
         
-        UILabel *label = [UILabel ll_labelWithFrame:CGRectMake(0, 55+10, self.view.width, 30) text:@"搭讪聊天约会调情，搜搜宝典全部搞定" font:[UIFont systemFontOfSize:12] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
+        UILabel *label = [UILabel ll_labelWithFrame:CGRectMake(0, 55+10, self.view.width, 30) text:@"搭讪聊天约会调情，搜搜宝典全部搞定" font:[UIFont systemFontOfSize:14] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
         label.backgroundColor = LLTheme.auxiliaryColor;
         
         [_header addSubview:label];
@@ -161,11 +161,6 @@
 ///复用内容视图
 - (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull LLExampleTableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
     cell.model = self.listArray[indexPath.row];
-//    WEAKSELF();
-//    cell.longPressBlock = ^(LLTagExampleModel * _Nonnull item) {
-//        [MBProgressHUD showMessage:@"已复制到剪切板" inView:weakSelf.view autoHideTime:1];
-//        [[UIPasteboard generalPasteboard] setString:item.dialog];
-//    };
 }
 
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {

@@ -7,7 +7,8 @@ target 'LLLoveTalk' do
     pod 'AFNetworking'
     pod 'YYWebImage'
     pod 'SPPageMenu'
-
+    pod 'TTTAttributedLabel'
+    
     #SDK
     pod 'AliyunOSSiOS'
     

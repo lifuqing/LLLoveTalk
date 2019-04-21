@@ -8,15 +8,19 @@
 #import "UITextView+LLTools.h"
 
 @implementation UITextView (LLTools)
-
-+ (instancetype)ll_textViewWithFrame:(CGRect)frame text:(NSString *)text font:(UIFont *)font textColor:(UIColor *)textColor textAlign:(NSTextAlignment)align {
-    UITextView *label = [[[self class] alloc ] initWithFrame:frame];
-    label.editable = NO;
-    label.backgroundColor = [UIColor clearColor];
-    label.text = text;
-    label.textColor = textColor;
-    label.font = font;
-    label.textAlignment = align;
-    return label;
++ (instancetype)ll_textViewWithFrame:(CGRect)frame {
+    return [self ll_textViewWithFrame:frame text:nil font:nil textColor:nil textAlign:NSTextAlignmentLeft];
 }
+
++ (instancetype)ll_textViewWithFrame:(CGRect)frame text:(nullable NSString *)text font:(nullable UIFont *)font textColor:(nullable UIColor *)textColor textAlign:(NSTextAlignment)align {
+    UITextView *textView = [[[self class] alloc ] initWithFrame:frame];
+    textView.editable = NO;
+    textView.backgroundColor = [UIColor clearColor];
+    textView.text = text;
+    textView.textColor = textColor;
+    textView.font = font;
+    textView.textAlignment = align;
+    return textView;
+}
+
 @end

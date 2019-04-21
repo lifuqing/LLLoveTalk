@@ -19,7 +19,7 @@
     if (self) {
         self.title = @"隐私政策";
         
-        self.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"隐私政策.docx" ofType:nil]];
+        self.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"private.docx" ofType:nil]];
     }
     return self;
 }

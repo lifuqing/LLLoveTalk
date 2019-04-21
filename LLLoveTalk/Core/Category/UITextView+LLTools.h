@@ -10,8 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextView (LLTools)
-
-+ (instancetype)ll_textViewWithFrame:(CGRect)frame text:(NSString *)text font:(UIFont *)font textColor:(UIColor *)textColor textAlign:(NSTextAlignment)align;
++ (instancetype)ll_textViewWithFrame:(CGRect)frame;
++ (instancetype)ll_textViewWithFrame:(CGRect)frame text:(nullable NSString *)text font:(nullable UIFont *)font textColor:(nullable UIColor *)textColor textAlign:(NSTextAlignment)align;
 
 @end
 

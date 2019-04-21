@@ -22,7 +22,7 @@
 		763BA7E22264CCF3007F673B /* LLEditInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E12264CCF3007F673B /* LLEditInfoViewController.m */; };
 		763BA7E52264D249007F673B /* LLPrivateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E42264D249007F673B /* LLPrivateViewController.m */; };
 		763BA7E822657CB2007F673B /* LLWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7E722657CB2007F673B /* LLWebViewController.m */; };
-		763BA7EA2265805B007F673B /* 隐私政策.docx in Resources */ = {isa = PBXBuildFile; fileRef = 763BA7E92265805B007F673B /* 隐私政策.docx */; };
+		763BA7EA2265805B007F673B /* private.docx in Resources */ = {isa = PBXBuildFile; fileRef = 763BA7E92265805B007F673B /* private.docx */; };
 		763BA7EF226600BC007F673B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 763BA7EE226600BC007F673B /* StoreKit.framework */; };
 		763BA7F222662EE4007F673B /* LLChatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7F122662EE3007F673B /* LLChatDetailViewController.m */; };
 		763BA7F52266306B007F673B /* LLChatDetailListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 763BA7F42266306B007F673B /* LLChatDetailListResponseModel.m */; };
@@ -68,6 +68,8 @@
 		76BF545B2263611700C424BB /* LLTagExampleListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545A2263611700C424BB /* LLTagExampleListResponseModel.m */; };
 		76BF545E2263624F00C424BB /* LLExampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF545D2263624F00C424BB /* LLExampleTableViewCell.m */; };
 		76BF5462226375D200C424BB /* LLUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BF5461226375D200C424BB /* LLUserTableViewCell.m */; };
+		76FB2E79226C99C40008F91E /* vipServiceProtocol.docx in Resources */ = {isa = PBXBuildFile; fileRef = 76FB2E77226C99C30008F91E /* vipServiceProtocol.docx */; };
+		76FB2E7A226C99C40008F91E /* autoSubscribe.docx in Resources */ = {isa = PBXBuildFile; fileRef = 76FB2E78226C99C40008F91E /* autoSubscribe.docx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +103,7 @@
 		763BA7E42264D249007F673B /* LLPrivateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLPrivateViewController.m; sourceTree = "<group>"; };
 		763BA7E622657CB2007F673B /* LLWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLWebViewController.h; sourceTree = "<group>"; };
 		763BA7E722657CB2007F673B /* LLWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLWebViewController.m; sourceTree = "<group>"; };
-		763BA7E92265805B007F673B /* 隐私政策.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "隐私政策.docx"; sourceTree = "<group>"; };
+		763BA7E92265805B007F673B /* private.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = private.docx; sourceTree = "<group>"; };
 		763BA7EE226600BC007F673B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		763BA7F022662EE3007F673B /* LLChatDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLChatDetailViewController.h; sourceTree = "<group>"; };
 		763BA7F122662EE3007F673B /* LLChatDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLChatDetailViewController.m; sourceTree = "<group>"; };
@@ -190,6 +192,8 @@
 		76BF545D2263624F00C424BB /* LLExampleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLExampleTableViewCell.m; sourceTree = "<group>"; };
 		76BF5460226375D200C424BB /* LLUserTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUserTableViewCell.h; sourceTree = "<group>"; };
 		76BF5461226375D200C424BB /* LLUserTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUserTableViewCell.m; sourceTree = "<group>"; };
+		76FB2E77226C99C30008F91E /* vipServiceProtocol.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = vipServiceProtocol.docx; sourceTree = "<group>"; };
+		76FB2E78226C99C40008F91E /* autoSubscribe.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = autoSubscribe.docx; sourceTree = "<group>"; };
 		B1C3AFB89463374257CEBA08 /* libPods-LLLoveTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LLLoveTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -240,12 +244,12 @@
 		76190C1F22573DB900FA944F /* LLLoveTalk */ = {
 			isa = PBXGroup;
 			children = (
-				764AB235225758CE00AD46E6 /* Core */,
-				76190C3622573DE300FA944F /* MainCode */,
 				76190C2922573DBB00FA944F /* Assets.xcassets */,
 				76190C2E22573DBB00FA944F /* Info.plist */,
 				76190C2F22573DBB00FA944F /* main.m */,
 				764AB2342257577900AD46E6 /* LLLoveTalk.pch */,
+				764AB235225758CE00AD46E6 /* Core */,
+				76190C3622573DE300FA944F /* MainCode */,
 			);
 			path = LLLoveTalk;
 			sourceTree = "<group>";
@@ -352,7 +356,9 @@
 		763BA7EB2265807A007F673B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				763BA7E92265805B007F673B /* 隐私政策.docx */,
+				76FB2E78226C99C40008F91E /* autoSubscribe.docx */,
+				76FB2E77226C99C30008F91E /* vipServiceProtocol.docx */,
+				763BA7E92265805B007F673B /* private.docx */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -587,7 +593,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				76190C2A22573DBB00FA944F /* Assets.xcassets in Resources */,
-				763BA7EA2265805B007F673B /* 隐私政策.docx in Resources */,
+				76FB2E7A226C99C40008F91E /* autoSubscribe.docx in Resources */,
+				763BA7EA2265805B007F673B /* private.docx in Resources */,
+				76FB2E79226C99C40008F91E /* vipServiceProtocol.docx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -110,11 +110,6 @@
 ///复用内容视图
 - (void)listController:(nonnull LLContainerListViewController *)listController reuseCell:(nonnull LLExampleTableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
     cell.model = self.listArray[indexPath.row];
-//    WEAKSELF();
-//    cell.longPressBlock = ^(LLTagExampleModel * _Nonnull item) {
-//        [MBProgressHUD showMessage:@"已复制到剪切板" inView:weakSelf.view autoHideTime:1];
-//        [[UIPasteboard generalPasteboard] setString:item.dialog];
-//    };
 }
 
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {

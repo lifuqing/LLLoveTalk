@@ -12,15 +12,22 @@
 #import "LLProductListResponseModel.h"
 #import <StoreKit/StoreKit.h>
 #import "LLUserResponseModel.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
+#import "LLWebViewController.h"
 
-@interface LLBuyVipViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface LLBuyVipViewController () <UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UITableView *listTableView;
 
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UIView *descView;
+@property (nonatomic, strong) TTTAttributedLabel *noteView;
 
 @property (nonatomic, copy) NSArray<LLBuyItemModel *> *list;
+
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSDictionary *attributes;
+@property (nonatomic, assign) NSInteger height;
 
 
 @end
@@ -29,6 +36,14 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.text = @"成为会员即表示同意《恋爱宝典会员服务协议》和《连续订阅服务协议》，自动订阅可随时取消。";
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 5;
+        
+        self.attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:LLTheme.subTitleColor, NSParagraphStyleAttributeName:style};
+        
+        self.height = [self.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:self.attributes context:nil].size.height;
         
     }
     return self;
@@ -233,6 +248,7 @@
         [_listTableView registerClass:[LLInfoShowTableViewCell class] forCellReuseIdentifier:@"InfoShowCellIdentifier"];
         [_listTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"BuyItemHeaderIdentifier"];
         [_listTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"InfoShowHeaderIdentifier"];
+        [_listTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"BuyItemFooterIdentifier"];
         
         if (@available(iOS 11, *)) {
             _listTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -277,6 +293,41 @@
     return _descView;
 }
 
+- (TTTAttributedLabel *)noteView {
+    if (!_noteView) {
+        NSString *text = self.text;
+        
+        _noteView = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, 0, self.view.width - 20, self.height)];
+        _noteView.numberOfLines = 0;
+        _noteView.backgroundColor = [UIColor clearColor];
+        _noteView.delegate = self;
+        
+        NSRange range1 = [text rangeOfString:@"《恋爱宝典会员服务协议》"];
+        NSRange range2 = [text rangeOfString:@"《连续订阅服务协议》"];
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 5;
+        
+        _noteView.attributedText = [[NSMutableAttributedString alloc] initWithString:text attributes:self.attributes];
+        _noteView.linkAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:LLTheme.mainColor};
+        _noteView.activeLinkAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:LLTheme.mainColor};
+        _noteView.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+        
+        [_noteView addLinkToURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"vipServiceProtocol.docx" ofType:nil]] withRange:range1];
+        [_noteView addLinkToURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"autoSubscribe.docx" ofType:nil]] withRange:range2];
+    }
+    return _noteView;
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url {
+    LLWebViewController *vc = [[LLWebViewController alloc] init];
+    
+    vc.title = [url.absoluteString containsString:@"vipServiceProtocol.docx"] ? @"恋爱宝典会员服务协议" : @"连续订阅服务协议";
+    vc.url = url;
+    [LLNav pushViewController:vc animated:YES];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.list.count > 0) {
@@ -307,6 +358,15 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return self.height + 10;
+    }
+    else {
+        return 0;
+    }
+}
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *aview = nil;
     if (section == 0) {
@@ -318,6 +378,16 @@
         aview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"InfoShowHeaderIdentifier"];
         aview.contentView.backgroundColor = [UIColor whiteColor];
         [aview.contentView addSubview:self.descView];
+    }
+    return aview;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *aview = nil;
+    if (section == 0) {
+        aview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BuyItemFooterIdentifier"];
+        aview.contentView.backgroundColor = [UIColor whiteColor];
+        [aview.contentView addSubview:self.noteView];
     }
     return aview;
 }

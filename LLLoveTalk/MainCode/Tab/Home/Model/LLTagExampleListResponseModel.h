@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LLTagExampleModel : LLBaseModel
 @property (nonatomic, assign) BOOL hide;
 @property (nonatomic, copy) NSString *dialog;
+
+@property (nonatomic, copy) NSDictionary *textAttributes;
+
 @end
 
 @interface LLTagExampleListResponseModel : LLListResponseModel
