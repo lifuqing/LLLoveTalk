@@ -24,8 +24,8 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    [LLConfig sharedInstance].isDebug = YES;
-    [LLConfig sharedInstance].isNeedLog = YES;
+    [LLConfig sharedInstance].isDebug = NO;
+    [LLConfig sharedInstance].isNeedLog = NO;
     
     [self configUI];
  

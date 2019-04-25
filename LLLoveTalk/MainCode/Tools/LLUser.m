@@ -259,6 +259,7 @@ NSString *const kIAPProductIdKey = @"productId";
         STRONGSELF();
         LLUserResponseModel *userModel = (LLUserResponseModel *)model;
         strongSelf.remaindays = userModel.remaindays;
+        strongSelf.ispaid = userModel.ispaid;
         [strongSelf storeUserInfoToUserDefault];
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChangedNotification object:nil];
         if (completion) {
