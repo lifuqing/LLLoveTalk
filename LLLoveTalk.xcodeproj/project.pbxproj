@@ -840,13 +840,11 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AlipaySDK-iOS\"",
 					"\"${PODS_ROOT}/Headers/Public/LLContainerComponent\"",
 					"\"${PODS_ROOT}/Headers/Public/LLHttpEngine\"",
 					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
 					"\"${PODS_ROOT}/Headers/Public/SVPullToRefresh\"",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
-					"\"$(SRCROOT)/LLLoveTalk/MainCode/Pay/AliPay/Demo\"",
 				);
 				INFOPLIST_FILE = LLLoveTalk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -854,10 +852,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/LLLoveTalk/MainCode/Pay/AliPay/Demo",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -879,13 +874,11 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AlipaySDK-iOS\"",
 					"\"${PODS_ROOT}/Headers/Public/LLContainerComponent\"",
 					"\"${PODS_ROOT}/Headers/Public/LLHttpEngine\"",
 					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
 					"\"${PODS_ROOT}/Headers/Public/SVPullToRefresh\"",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
-					"\"$(SRCROOT)/LLLoveTalk/MainCode/Pay/AliPay/Demo\"",
 				);
 				INFOPLIST_FILE = LLLoveTalk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -893,10 +886,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/LLLoveTalk/MainCode/Pay/AliPay/Demo",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

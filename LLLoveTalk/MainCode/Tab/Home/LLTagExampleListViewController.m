@@ -76,13 +76,19 @@
 
 #pragma mark - action
 - (void)searchButtonActionClick:(UIButton *)sender {
-    if ([LLUser sharedInstance].isLogin) {
+    if ([LLConfig sharedInstance].isCheck) {
         LLSearchViewController *vc = [[LLSearchViewController alloc] init];
         [LLNav pushViewController:vc animated:YES];
     }
     else {
-        LLLoginViewController *vc = [[LLLoginViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
+        if ([LLUser sharedInstance].isLogin) {
+            LLSearchViewController *vc = [[LLSearchViewController alloc] init];
+            [LLNav pushViewController:vc animated:YES];
+        }
+        else {
+            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
     }
 }
 

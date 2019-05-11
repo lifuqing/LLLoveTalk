@@ -36,10 +36,10 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.text = @"成为会员即表示同意《恋爱宝典会员服务协议》和《连续订阅服务协议》，自动订阅可随时取消。";
+        self.text = @"成为会员即表示同意《恋爱宝典会员服务协议》和《连续订阅服务协议》，自动订阅可随时取消。\n\n自动续费服务声明\n● 付款:用户确认购买并付款后记入iTunes账户; \n● 取消续订:如需取消续订，请在当前订阅周期到期前24小时以前，手动在iTunes/ApplelD设置管理中关闭自动续费功能，到期前24小时内取消，将会收取订阅费用;\n● 续费:苹果iTunes账户会在到期前24小时内扣费，扣费成功后订阅周期顺延一个订阅周期。\n● 自动续费服务有效期:本服务由您自主选择是否取消，若您选择不取消，将为您开通下一个计费周期的包月服务。";
         
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-        style.lineSpacing = 5;
+        style.lineSpacing = 6;
         
         self.attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14], NSForegroundColorAttributeName:LLTheme.subTitleColor, NSParagraphStyleAttributeName:style};
         
@@ -205,7 +205,16 @@
         }
         else {
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-            [UIAlertController ll_showAlertWithTarget:weakSelf title:@"非常抱歉" message:@"会员状态更新失败，下次启动会自动重试，状态更新成功之前请不要删除我们的APP。" cancelTitle:@"好的" otherTitles:nil completion:nil];
+            if ([LLUser sharedInstance].isLogin) {
+                [UIAlertController ll_showAlertWithTarget:weakSelf title:@"非常抱歉" message:@"会员状态更新失败，下次启动会自动重试，状态更新成功之前请不要删除我们的APP。" cancelTitle:@"好的" otherTitles:nil completion:nil];
+            }
+            else {
+                [UIAlertController ll_showAlertWithTarget:weakSelf title:@"请注意" message:@"您已购买会员，请注册/登录账户进行绑定，解锁全部会员权益。" cancelTitle:@"好的" otherTitles:@[@"去登录"] completion:^(NSInteger buttonIndex) {
+                    if (buttonIndex == 1) {
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }
+                }];
+            }
         }
         
         if (success && [LLUser sharedInstance].isSuperVIP) {

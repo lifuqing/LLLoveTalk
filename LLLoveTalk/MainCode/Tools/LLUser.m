@@ -97,6 +97,7 @@ NSString *const kIAPProductIdKey = @"productId";
         STRONGSELF();
         strongSelf.login = YES;
         [strongSelf configWithModel:(LLUserResponseModel *)model];
+        [strongSelf fetchNoUploadAndUploadToServerProductIds];
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginStateChangedNotification object:nil];
         if (completion) {
             completion(YES, @"登录成功");
@@ -244,7 +245,9 @@ NSString *const kIAPProductIdKey = @"productId";
 }
 
 - (NSString *)noUploadIdentifier {
-    return [@"iapNoUploadList-" stringByAppendingString:[LLUser sharedInstance].phone];
+    //暂时不适用phone来作为标识，实际上还是需要后端来处理比较靠谱
+    return @"iapNoUploadList-";
+//    return [@"iapNoUploadList-" stringByAppendingString:[LLUser sharedInstance].phone];
 }
 
 

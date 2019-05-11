@@ -31,6 +31,8 @@
  
     [self registerSomething];
     
+    [self runSomething];
+    
     [self delayRunSometing];
     
     return YES;
@@ -48,6 +50,10 @@
     
 }
 
+- (void)runSomething {
+    [self checkState];
+}
+
 - (void)registerSomething {
     if ([LLUser sharedInstance].isLogin && ![LLUser sharedInstance].isSuperVIP) {
         [self observeIAPStatus];
@@ -58,6 +64,29 @@
     [[LLUser sharedInstance] fetchUserInfoCompletion:nil];
 }
 
+
+- (void)checkState {
+    WEAKSELF();
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"InitParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+        BOOL ischeck = [result[@"data"][@"state"] boolValue];
+        if (ischeck) {
+            [LLConfig sharedInstance].isCheck = ischeck;
+            NSString *message = result[@"data"][@"alert_box"];
+            if (message) {
+                [weakSelf showAlertWithMessage:message];
+            }
+        }
+    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error, LLBaseResponseModel * _Nonnull model) {
+        //
+    }];
+}
+
+- (void)showAlertWithMessage:(NSString *)message {
+    if (message.length > 0) {
+        [UIAlertController ll_showAlertWithTarget:[LLNav topViewController] title:@"提示" message:message cancelTitle:@"好的" otherTitles:nil completion:nil];
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

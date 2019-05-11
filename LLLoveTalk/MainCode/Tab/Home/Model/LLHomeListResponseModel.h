@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LLHomeListResponseModel : LLListResponseModel
 
+@property (nonatomic, copy) NSString *alert_box;
 @end
 
 NS_ASSUME_NONNULL_END

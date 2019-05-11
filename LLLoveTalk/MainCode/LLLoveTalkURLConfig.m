@@ -14,9 +14,17 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.server = @"http://apillbd.simache.com";//@"http://116.62.90.52"
+        self.server = [LLConfig sharedInstance].server;//@"http://apillbd.simache.com";//@"http://116.62.90.52"
     }
     return self;
+}
+
+- (NSDictionary *)commonParams {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[[UIDevice currentDevice] appVersion] forKey:@"version"];
+    [dict setValue:@([LLConfig sharedInstance].isCheck) forKey:@"check_state"];
+    [dict setValue:[LLUser sharedInstance].phone ?:@"" forKey:@"phone"];
+    return [dict copy];
 }
 
 - (NSArray *)loadUrlInfo{
@@ -40,6 +48,15 @@
                          @"cache"      : @(NO),
                          @"params"     : @{},
                          @"modelClass" : @"LLXXXListResponseModel"  //继承自LLListResponseModel(列表页)或者LLBaseResponseModel（普通请求）的类名，普通接口可选参数,列表必选
+                         },
+#pragma mark -初始化接口
+                     @{
+                         @"parser"     : @"InitParser",//,命名规则XXXXListParser
+                         @"server"     : self.server,
+                         @"url"        : @"/state_check",
+                         @"method"     : @"get",
+                         @"cache"      : @(NO),
+                         @"params"     : @{},
                          },
 #pragma mark -首页列表接口
                      @{

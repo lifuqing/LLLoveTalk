@@ -31,6 +31,7 @@
 #import "UIButton+LLTools.h"
 #import "MBProgressHUD+LLTools.h"
 #import "UIAlertController+LLTools.h"
+#import "UIDevice+LLTools.h"
 
 #import <LLHttpEngine/LLHttpEngine.h>
 

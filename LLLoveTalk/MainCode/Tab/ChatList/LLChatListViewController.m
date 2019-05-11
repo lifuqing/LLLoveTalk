@@ -101,20 +101,27 @@
 
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {
     LLChatItemModel *model = self.listArray[indexPath.row];
-    if ([LLUser sharedInstance].isLogin) {
-        if (![LLUser sharedInstance].ispaid) {
-            LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-            [LLNav pushViewController:vc animated:YES];
-        }
-        else {
-            LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
-            vc.chatListType = self.chatListType;
-            [LLNav pushViewController:vc animated:YES];
-        }
+    if ([LLConfig sharedInstance].isCheck) {
+        LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
+        vc.chatListType = self.chatListType;
+        [LLNav pushViewController:vc animated:YES];
     }
     else {
-        LLLoginViewController *vc = [[LLLoginViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
+        if ([LLUser sharedInstance].isLogin) {
+            if (![LLUser sharedInstance].ispaid) {
+                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+                [LLNav pushViewController:vc animated:YES];
+            }
+            else {
+                LLChatDetailViewController *vc = [[LLChatDetailViewController alloc] initWithContentId:model.contentid];
+                vc.chatListType = self.chatListType;
+                [LLNav pushViewController:vc animated:YES];
+            }
+        }
+        else {
+            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
     }
     
 }

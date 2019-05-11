@@ -26,39 +26,17 @@
 }
 
 - (NSDictionary *)configDictionary{
-    return @{@"debug"   : @{@"server"   : @"http://apillbd.simache.com",
-                            @"pid"          : @{@"iphone"   : @"appstore",
-                                                @"ipad"     : @"appstore_hd"},
+    return @{@"debug"   : @{@"server"   : @"https://apillbd.dhhkk.com",
+                            @"pid"      : @{@"iphone"   : @"appstore",
+                                            @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
-             @"release" : @{@"server"   : @"http://apillbd.simache.com",
-                            @"pid"          : @{@"iphone"   : @"appstore",
-                                                @"ipad"     : @"appstore_hd"},
+             @"release" : @{@"server"   : @"https://apillbd.dhhkk.com",
+                            @"pid"      : @{@"iphone"   : @"appstore",
+                                            @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
-                            },
-             @"share"   : @{@"sinaWB"   : @{@"secret"   : @"",
-                                            @"appid"    : @""},
-                            @"weixin"   : @{@"secret"   : @"",
-                                            @"appid"    : @""},
-                            @"tencentQQ": @{@"secret"   : @"",
-                                            @"appid"    : @""}
-                            },
-             @"sdk"     : @{@"baiduMap" : @{@"ak"       : @"",
-                                            @"appid"    : @""},
-                            @"um"       : @{@"appKey"   : @""},
-                            @"baidu"    : @{@"appKey"   : @""},
-                            @"xg"       : @{@"appid"    : @"",
-                                            @"appKey"   : @""},
-                            },
-             @"pay"     : @{@"alipay"   : @{@"partnerid": @"",
-                                            @"sellerid" : @"",
-                                            @"key"      : @""
-                                            },
-                            @"weixin"   : @{@"partnerid": @"",
-                                            @"key"      : @""
-                                            }
                             },
              @"shareSecret": @"301ca6085dc34796a8f7dd6721e540e6"
              };
@@ -74,38 +52,6 @@
     self.secret = [[[dict objectForKey:mode] objectForKey:@"secret"] objectForKey:@"iphone"];
     
     self.server = [[dict objectForKey:mode] objectForKey:@"server"];
-    
-    NSDictionary *share = [dict objectForKey:@"share"];
-    
-    self.sinaWBAppId     = [[share objectForKey:@"sinaWB"] objectForKey:@"appid"];
-    self.sinaWBSecret    = [[share objectForKey:@"sinaWB"] objectForKey:@"secret"];
-    
-    self.tencentWBAppId  = [[share objectForKey:@"tencentWB"] objectForKey:@"appid"];
-    self.tencentWBSecret = [[share objectForKey:@"tencentWB"] objectForKey:@"secret"];
-    
-    self.weixinAppId     = [[share objectForKey:@"weixin"] objectForKey:@"appid"];
-    self.weixinSecret    = [[share objectForKey:@"weixin"] objectForKey:@"secret"];
-    
-    self.tencentQQAppId  = [[share objectForKey:@"tencentQQ"] objectForKey:@"appid"];
-    self.tencentQQSecret = [[share objectForKey:@"tencentQQ"] objectForKey:@"secret"];
-    
-    NSDictionary *sdk = dict[@"sdk"];
-    self.baiduMapAppId  = sdk[@"baiduMap"][@"appid"];
-    self.baiduMapSecret = sdk[@"baiduMap"][@"ak"];
-    
-    self.umAppKey       = sdk[@"um"][@"appKey"];
-    
-    self.baiduAppKey    = sdk[@"baidu"][@"appKey"];
-    
-    self.xgAppId        = sdk[@"xg"][@"appid"];
-    self.xgAppKey       = sdk[@"xg"][@"appKey"];
-    
-    NSDictionary *pay = dict[@"pay"];
-    self.aliPartnerID    = pay[@"alipay"][@"partnerid"];
-    self.aliSellerID     = pay[@"alipay"][@"sellerid"];
-    self.aliPrivateKey   = pay[@"alipay"][@"key"];
-    
-    self.weixinPartnerID = pay[@"weixin"][@"partnerid"];
     
     self.shareSecret = dict[@"shareSecret"];
 }
@@ -137,7 +83,7 @@
     dict[@"pid"]=[LLConfig sharedInstance].pid;
     
     //版本号
-    dict[@"appver"]=[LLConfig sharedInstance].appVersion ? [LLConfig sharedInstance].appVersion : @"";
+    dict[@"appver"]=[LLConfig sharedInstance].appVersion ?: @"";
     //品牌
     dict[@"brand"] = @"apple";
     //机型
