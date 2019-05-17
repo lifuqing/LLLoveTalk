@@ -11,6 +11,7 @@
 #import <StoreKit/StoreKit.h>
 #import "LLIAPShare.h"
 #import "LLProductListResponseModel.h"
+#import "LLUser.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,10 @@
     
     [LLConfig sharedInstance].isDebug = NO;
     [LLConfig sharedInstance].isNeedLog = NO;
+    
+    [LLURLCacheManager sharedInstance].userID = ^NSString *{
+        return [LLUser sharedInstance].phone;
+    };
     
     [self configUI];
  
@@ -68,7 +73,7 @@
 - (void)checkState {
     WEAKSELF();
     LLURL *llurl = [[LLURL alloc] initWithParser:@"InitParser" urlConfigClass:[LLLoveTalkURLConfig class]];
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         BOOL ischeck = [result[@"data"][@"state"] boolValue];
         if (ischeck) {
             [LLConfig sharedInstance].isCheck = ischeck;
@@ -77,7 +82,7 @@
                 [weakSelf showAlertWithMessage:message];
             }
         }
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error, LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error, LLBaseResponseModel * _Nullable model) {
         //
     }];
 }
@@ -121,11 +126,11 @@
     WEAKSELF();
     LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLLoveTalkURLConfig class]];
     
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         LLProductListResponseModel *productListModel = (LLProductListResponseModel *)model;
         NSSet<NSString *> *productIds = [NSSet setWithArray:[productListModel.list valueForKey:@"productId"]];
         [weakSelf configIAPWithIdentifiers:productIds];
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
     }];
 }
 

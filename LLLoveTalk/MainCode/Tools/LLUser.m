@@ -77,11 +77,11 @@ NSString *const kIAPProductIdKey = @"productId";
 - (void)sendCodeWithPhone:(NSString *)phone completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
     LLURL *llurl = [[LLURL alloc] initWithParser:@"SendCodeParser" urlConfigClass:[LLLoveTalkURLConfig class]];
     [llurl.params setValue:phone forKey:@"phone"];
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         if (completion) {
             completion(YES, @"验证码发送成功");
         }
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
         if (completion) {
             completion(NO, model.errorMsg ?: @"验证码发送失败");
         }
@@ -93,7 +93,7 @@ NSString *const kIAPProductIdKey = @"productId";
     [llurl.params setValue:phone forKey:@"phone"];
     [llurl.params setValue:code forKey:@"code"];
     WEAKSELF();
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         STRONGSELF();
         strongSelf.login = YES;
         [strongSelf configWithModel:(LLUserResponseModel *)model];
@@ -102,7 +102,7 @@ NSString *const kIAPProductIdKey = @"productId";
         if (completion) {
             completion(YES, @"登录成功");
         }
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
         if (completion) {
             completion(NO, model.errorMsg ?: @"登录失败");
         }
@@ -114,7 +114,7 @@ NSString *const kIAPProductIdKey = @"productId";
     [llurl.params setValue:username forKey:@"username"];
     [llurl.params setValue:self.phone forKey:@"phone"];
     WEAKSELF();
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         STRONGSELF();
         strongSelf.username = username;
         [strongSelf storeUserInfoToUserDefault];
@@ -122,7 +122,7 @@ NSString *const kIAPProductIdKey = @"productId";
         if (completion) {
             completion(YES, @"修改成功");
         }
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
         if (completion) {
             completion(NO, model.errorMsg ?: @"修改失败");
         }
@@ -134,13 +134,13 @@ NSString *const kIAPProductIdKey = @"productId";
         LLURL *llurl = [[LLURL alloc] initWithParser:@"GetUserInfoParser" urlConfigClass:[LLLoveTalkURLConfig class]];
         [llurl.params setValue:self.phone forKey:@"phone"];
         WEAKSELF();
-        [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+        [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
             STRONGSELF();
             [strongSelf configWithModel:(LLUserResponseModel *)model];
             if (completion) {
                 completion(YES, @"信息获取成功");
             }
-        } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+        } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
             if (completion) {
                 completion(NO, model.errorMsg ?: @"信息获取失败");
             }
@@ -258,7 +258,7 @@ NSString *const kIAPProductIdKey = @"productId";
     [llurl.params setValue:[LLUser sharedInstance].phone ?:@"" forKey:@"phone"];
     [llurl.params setValue:productId forKey:@"productid"];
     [llurl.params setValue:receiptBase64 forKey:@"receipt"];
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         STRONGSELF();
         LLUserResponseModel *userModel = (LLUserResponseModel *)model;
         strongSelf.remaindays = userModel.remaindays;
@@ -268,7 +268,7 @@ NSString *const kIAPProductIdKey = @"productId";
         if (completion) {
             completion(YES, @"上传成功");
         }
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
         STRONGSELF();
         if (productId && receiptBase64) {
  

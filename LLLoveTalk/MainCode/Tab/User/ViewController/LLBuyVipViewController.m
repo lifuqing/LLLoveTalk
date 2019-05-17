@@ -73,14 +73,14 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nonnull model, BOOL isLocalCache) {
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         LLProductListResponseModel *productListModel = (LLProductListResponseModel *)model;
         weakSelf.list = [productListModel.list copy];
         NSSet<NSString *> *productIds = [NSSet setWithArray:[productListModel.list valueForKey:@"productId"]];
         [weakSelf configIAPWithIdentifiers:productIds];
         [weakSelf.listTableView reloadData];
-    } failure:^(NSURLResponse * _Nonnull response, NSError * _Nullable error,  LLBaseResponseModel * _Nonnull model) {
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         [LLErrorView showErrorViewInView:weakSelf.view withErrorType:LLErrorTypeFailed withClickBlock:^{
             [weakSelf requestData];
