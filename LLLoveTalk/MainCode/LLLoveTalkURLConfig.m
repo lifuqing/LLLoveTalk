@@ -24,6 +24,7 @@
     [dict setValue:[[UIDevice currentDevice] appVersion] forKey:@"version"];
     [dict setValue:@([LLConfig sharedInstance].isCheck) forKey:@"check_state"];
     [dict setValue:[LLUser sharedInstance].phone ?:@"" forKey:@"phone"];
+    [dict setValue:@"ios" forKey:@"channel"];
     return [dict copy];
 }
 
