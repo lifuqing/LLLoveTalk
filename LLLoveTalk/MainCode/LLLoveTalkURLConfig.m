@@ -69,6 +69,16 @@
                          @"params"     : @{},
                          @"modelClass" : @"LLHomeListResponseModel"  //继承自LLListResponseModel(列表页)或者LLBaseResponseModel（普通请求）的类名，普通接口可选参数,列表必选
                          },
+#pragma mark -搜索关键词接口
+                     @{
+                         @"parser"     : @"SearchKeywordsParser",//,命名规则XXXXListParser
+                         @"server"     : self.server,
+                         @"url"        : @"/get_keywords",
+                         @"method"     : @"post",
+                         @"cache"      : @(NO),
+                         @"params"     : @{},
+                         @"modelClass" : @"LLSearchKeywordsModel"
+                         },
 #pragma mark -搜索接口
                      @{
                          @"parser"     : @"SearchListParser",//,命名规则XXXXListParser

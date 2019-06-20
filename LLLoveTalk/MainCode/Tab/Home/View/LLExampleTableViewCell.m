@@ -43,7 +43,7 @@
 @implementation LLExampleTableViewCell
 
 + (CGFloat)cellHeightWithModel:(LLTagExampleModel *)model {
-    return [model.dialog boundingRectWithSize:CGSizeMake(kContentWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:model.textAttributes context:nil].size.height + 16;
+    return [model.dialog boundingRectWithSize:CGSizeMake(kContentWidth, MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin  attributes:model.textAttributes context:nil].size.height + 16;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -51,8 +51,11 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.titleTextView = [UICopyTextView ll_textViewWithFrame:CGRectZero];
+        CGFloat padding = self.titleTextView.textContainer.lineFragmentPadding;
         
-        self.titleTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        self.titleTextView.textContainerInset = UIEdgeInsetsMake(0, -padding, 0, -padding);
+        
+//        self.titleTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
         //当光标在最后一行时，始终显示低边距，需使用contentInset设置bottom.
         self.titleTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         //防止在拼音打字时抖动

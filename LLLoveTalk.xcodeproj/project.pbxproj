@@ -52,6 +52,7 @@
 		764AB429225B771D00AD46E6 /* LLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 764AB428225B771D00AD46E6 /* LLLoginViewController.m */; };
 		765E28EE2266FACC002EEE7B /* LLBuyItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 765E28ED2266FACC002EEE7B /* LLBuyItemTableViewCell.m */; };
 		765E28F12266FADB002EEE7B /* LLInfoShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 765E28F02266FADB002EEE7B /* LLInfoShowTableViewCell.m */; };
+		7662BFC222B9D308008B4F2C /* LLSearchKeywordsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7662BFC122B9D308008B4F2C /* LLSearchKeywordsModel.m */; };
 		7668F4DE226A14CD00346CD8 /* LLProductListResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7668F4DD226A14CD00346CD8 /* LLProductListResponseModel.m */; };
 		7668F4E1226A29F200346CD8 /* LLUserResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7668F4E0226A29F200346CD8 /* LLUserResponseModel.m */; };
 		7668F4E4226AFDD100346CD8 /* UIAlertController+LLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7668F4E3226AFDD100346CD8 /* UIAlertController+LLTools.m */; };
@@ -163,6 +164,8 @@
 		765E28ED2266FACC002EEE7B /* LLBuyItemTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLBuyItemTableViewCell.m; sourceTree = "<group>"; };
 		765E28EF2266FADB002EEE7B /* LLInfoShowTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLInfoShowTableViewCell.h; sourceTree = "<group>"; };
 		765E28F02266FADB002EEE7B /* LLInfoShowTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLInfoShowTableViewCell.m; sourceTree = "<group>"; };
+		7662BFC022B9D308008B4F2C /* LLSearchKeywordsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLSearchKeywordsModel.h; sourceTree = "<group>"; };
+		7662BFC122B9D308008B4F2C /* LLSearchKeywordsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLSearchKeywordsModel.m; sourceTree = "<group>"; };
 		7668F4DC226A14CD00346CD8 /* LLProductListResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLProductListResponseModel.h; sourceTree = "<group>"; };
 		7668F4DD226A14CD00346CD8 /* LLProductListResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLProductListResponseModel.m; sourceTree = "<group>"; };
 		7668F4DF226A29F200346CD8 /* LLUserResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUserResponseModel.h; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				7628BC53225F8622003B7401 /* LLHomeListResponseModel.m */,
 				76BF54592263611700C424BB /* LLTagExampleListResponseModel.h */,
 				76BF545A2263611700C424BB /* LLTagExampleListResponseModel.m */,
+				7662BFC022B9D308008B4F2C /* LLSearchKeywordsModel.h */,
+				7662BFC122B9D308008B4F2C /* LLSearchKeywordsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 				7668F4F1226C150B00346CD8 /* LLIAPShare.m in Sources */,
 				76190C4B22573FE900FA944F /* LLHomeViewController.m in Sources */,
 				76190C4E22573FF900FA944F /* LLUserViewController.m in Sources */,
+				7662BFC222B9D308008B4F2C /* LLSearchKeywordsModel.m in Sources */,
 				764AB2E1225B157000AD46E6 /* NSString+LLTools.m in Sources */,
 				76BF545222621B0700C424BB /* LLChatPrivateTableViewCell.m in Sources */,
 				763BA7E22264CCF3007F673B /* LLEditInfoViewController.m in Sources */,
@@ -832,7 +838,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RYMDA537T6;
+				DEVELOPMENT_TEAM = B2G4949QJL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = LLLoveTalk/LLLoveTalk.pch;
@@ -853,7 +859,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.love.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -866,7 +872,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RYMDA537T6;
+				DEVELOPMENT_TEAM = B2G4949QJL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = LLLoveTalk/LLLoveTalk.pch;
@@ -887,7 +893,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianai.loveTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.love.loveTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

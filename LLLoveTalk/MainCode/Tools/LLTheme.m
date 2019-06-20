@@ -26,7 +26,7 @@
 }
 
 + (UIColor *)titleColor {
-    return RGB(89, 87, 87);
+    return [UIColor blackColor];//RGB(89, 87, 87);
 }
 
 + (UIColor *)subTitleColor {

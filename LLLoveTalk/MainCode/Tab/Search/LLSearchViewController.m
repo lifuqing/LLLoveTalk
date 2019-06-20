@@ -39,7 +39,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.searchBar becomeFirstResponder];
+    if (self.defaultKeyword.length > 0) {
+        self.searchBar.text = self.defaultKeyword;
+        [self.searchBar endEditing:NO];
+        [self requestData];
+    }
+    else {
+        [self.searchBar becomeFirstResponder];
+    }
 }
 
 - (UISearchBar *)searchBar {

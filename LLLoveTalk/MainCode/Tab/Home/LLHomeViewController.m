@@ -15,6 +15,9 @@
 #import "LLHomeListResponseModel.h"
 #import "LLSearchViewController.h"
 #import "LLLoginViewController.h"
+#import "LLSearchKeywordsModel.h"
+
+#define kDefaultSearchString @"搜索聊天话术"
 
 static NSString * const kHeaderIdentifier = @"kHeaderIdentifier";
 static NSString * const kCellIdentifier = @"kCellIdentifier";
@@ -22,9 +25,14 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 @interface LLHomeViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, LLListBaseDataSourceDelegate>
 
 @property (nonatomic, strong) UIView *searchBar;
+@property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) LLListBaseDataSource *listDataSource;
 @property (nonatomic, strong) NSMutableArray <LLHomeItemResponseModel *> *list;
+@property (nonatomic) NSTimer *requestKeywordsTimer;
+@property (nonatomic) NSTimer *refreshKeywordsTimer;
+@property (nonatomic, strong) LLSearchKeywordsModel *searchKeywordsModel;
+@property (nonatomic, strong) NSMutableArray *hasShowArray;
 @end
 
 @implementation LLHomeViewController
@@ -44,12 +52,68 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
     [self.view addSubview:self.searchBar];
     [self.view addSubview:self.collectionView];
     [self requestData];
+    [self startRequestKeywords];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+//    [_requestKeywordsTimer invalidate];
+//    _requestKeywordsTimer = nil;
+//    [_refreshKeywordsTimer invalidate];
+//    _refreshKeywordsTimer = nil;
+    
+}
 
 #pragma mark - public
 
 #pragma mark - private
+
+- (void)startRequestKeywords {
+    if (!_requestKeywordsTimer) {
+        _requestKeywordsTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(startRequestKeywords) userInfo:nil repeats:YES];
+    }
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"SearchKeywordsParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    WEAKSELF();
+    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
+        if ([model isKindOfClass:[LLSearchKeywordsModel class]]) {
+            weakSelf.searchKeywordsModel = (LLSearchKeywordsModel *)model;
+            if (weakSelf.searchKeywordsModel.keywords.count > 0) {
+                [weakSelf refreshKeywords];
+            }
+        }
+    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error, LLBaseResponseModel * _Nullable model) {
+        
+    }];
+}
+
+- (void)refreshKeywords {
+    [_refreshKeywordsTimer invalidate];
+    _refreshKeywordsTimer = nil;
+    if (!_hasShowArray) {
+        _hasShowArray = [NSMutableArray array];
+    }
+    else {
+        [self.hasShowArray removeAllObjects];
+    }
+    
+    _refreshKeywordsTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(replaceKeyword) userInfo:nil repeats:YES];
+}
+
+- (void)replaceKeyword {
+    [self.searchKeywordsModel.keywords enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (![self.hasShowArray containsObject:obj]) {
+            [self.hasShowArray addObject:obj];
+            [self.searchButton setTitle:obj forState:UIControlStateNormal];
+        }
+    }];
+}
+
 - (void)prepareRequest {
     if (self.list.count) {
         [self.list removeAllObjects];
@@ -91,12 +155,12 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (void)configColorHeader:(nullable LLHeaderCollectionReusableView *)header cell:(nullable LLTagCollectionViewCell *)cell inSection:(NSInteger)section {
     NSInteger i = section % 6;
     UIColor *color = [UIColor lightGrayColor];
-    if (i == 0) color = RGB(220, 240, 186);
-    else if (i == 1) color = RGB(255, 241, 198);
-    else if (i == 2) color = RGB(249, 221, 227);
-    else if (i == 3) color = RGB(207, 232, 226);
-    else if (i == 4) color = RGB(230, 218, 234);
-    else if (i == 5) color = RGB(215, 233, 246);
+    if (i == 0) color = RGB(208, 223, 169);
+    else if (i == 1) color = RGB(247, 227, 158);
+    else if (i == 2) color = RGB(239, 191, 203);
+    else if (i == 3) color = RGB(214, 235, 229);
+    else if (i == 4) color = RGB(214, 220, 233);
+    else if (i == 5) color = RGB(220, 236, 248);
     header.backgroundColor = color;
     cell.backgroundColor = color;
 }
@@ -105,11 +169,21 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (void)searchButtonActionClick:(UIButton *)sender {
     if ([LLConfig sharedInstance].isCheck) {
         LLSearchViewController *vc = [[LLSearchViewController alloc] init];
+        NSString *str = [self.searchButton titleForState:UIControlStateNormal];
+        if (![str isEqualToString:kDefaultSearchString]) {
+            vc.defaultKeyword = str;
+        }
+        
         [LLNav pushViewController:vc animated:YES];
     }
     else {
         if ([LLUser sharedInstance].isLogin) {
             LLSearchViewController *vc = [[LLSearchViewController alloc] init];
+            NSString *str = [self.searchButton titleForState:UIControlStateNormal];
+            if (![str isEqualToString:kDefaultSearchString]) {
+                vc.defaultKeyword = str;
+            }
+            
             [LLNav pushViewController:vc animated:YES];
         }
         else {
@@ -146,7 +220,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (UIView *)searchBar {
     if (!_searchBar) {
         _searchBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
-        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:@"搜索聊天话术" font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
+        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:kDefaultSearchString font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
         searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         searchButton.layer.cornerRadius = 8;
         searchButton.backgroundColor = [UIColor whiteColor];
@@ -155,6 +229,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
         [searchButton setImage:LLImage(@"icon_gray_search") forState:UIControlStateNormal];
         searchButton.adjustsImageWhenHighlighted = NO;
         [_searchBar addSubview:searchButton];
+        self.searchButton = searchButton;
         _searchBar.backgroundColor = LLTheme.searchBGColor;
     }
     return _searchBar;

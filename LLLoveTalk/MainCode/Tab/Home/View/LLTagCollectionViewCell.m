@@ -23,7 +23,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = 4;
         self.layer.masksToBounds = YES;
-        self.titleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:14] textColor:RGB(114, 113, 113) textAlign:NSTextAlignmentCenter];
+        self.titleLabel = [UILabel ll_labelWithFrame:CGRectZero text:@"" font:[UIFont systemFontOfSize:14] textColor:LLTheme.titleColor textAlign:NSTextAlignmentCenter];
         
         [self addSubview:self.titleLabel];
     }

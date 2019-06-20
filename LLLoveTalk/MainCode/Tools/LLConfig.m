@@ -26,19 +26,19 @@
 }
 
 - (NSDictionary *)configDictionary{
-    return @{@"debug"   : @{@"server"   : @"https://apillbd.dhhkk.com",
+    return @{@"debug"   : @{@"server"   : @"http://api.dgthp.com",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
-             @"release" : @{@"server"   : @"https://apillbd.dhhkk.com",
+             @"release" : @{@"server"   : @"http://api.dgthp.com",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
-             @"shareSecret": @"301ca6085dc34796a8f7dd6721e540e6"
+             @"shareSecret": @"778cb59a5a2d403a9abbd40fc6a78de9"
              };
 }
 -(void)loadConfig
