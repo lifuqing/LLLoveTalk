@@ -110,6 +110,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
         if (![self.hasShowArray containsObject:obj]) {
             [self.hasShowArray addObject:obj];
             [self.searchButton setTitle:obj forState:UIControlStateNormal];
+            *stop = YES;
         }
     }];
 }
