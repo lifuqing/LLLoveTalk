@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git`'
 
 inhibit_all_warnings!
 
-target 'LLLoveTalk' do
+target 'LLAiLove' do
     #第三方
     pod 'AFNetworking'
     pod 'YYWebImage'

@@ -1,13 +1,13 @@
 //
 //  LLTabBarViewController.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
 
 #import "LLTabBarViewController.h"
 #import "LLHomeViewController.h"
-#import "LLChatContainerViewController.h"
+#import "LLCommunityViewController.h"
 #import "LLUserViewController.h"
 #import "LLBaseNavigationController.h"
 
@@ -36,9 +36,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         LLHomeViewController *vc1 = [[LLHomeViewController alloc] init];
-        vc1.title = @"恋爱宝典";
-        LLChatContainerViewController *vc2 = [[LLChatContainerViewController alloc] init];
-        vc2.title = @"聊天实战";
+        vc1.title = @"恋爱话术";
+        LLCommunityViewController *vc2 = [[LLCommunityViewController alloc] init];
+        vc2.title = @"情感广场";
         LLUserViewController *vc3 = [[LLUserViewController alloc] init];
         vc3.title = @"我的";
         

@@ -1,6 +1,6 @@
 //
 //  LLTheme.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
@@ -10,7 +10,8 @@
 @implementation LLTheme
 
 + (UIColor *)mainColor {
-    return RGB(220, 89, 119);
+    return RGB(215, 173, 210);
+//    return RGB(220, 89, 119);
 }
 
 + (UIColor *)auxiliaryColor {

@@ -1,12 +1,12 @@
 //
-//  LLLoveTalk.pch
-//  LLLoveTalk
+//  LLAiLove.pch
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
 
-#ifndef LLLoveTalk_pch
-#define LLLoveTalk_pch
+#ifndef LLAiLove_pch
+#define LLAiLove_pch
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
@@ -21,7 +21,7 @@
 #import "LLNavigation.h"
 #import "LLUser.h"
 #import "LLConfig.h"
-#import "LLLoveTalkURLConfig.h"
+#import "LLAiLoveURLConfig.h"
 
 #import "UIView+LLTools.h"
 #import "UIViewController+LLBarItem.h"
@@ -38,4 +38,4 @@
 #import "LLErrorView.h"
 
 
-#endif /* LLLoveTalk_pch */
+#endif /* LLAiLove_pch */

@@ -1,6 +1,6 @@
 //
-//  LLLoveTalkURLConfig.h
-//  LLLoveTalk
+//  LLAiLoveURLConfig.h
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LLLoveTalkURLConfig : LLURLBaseConfig
+@interface LLAiLoveURLConfig : LLURLBaseConfig
 
 @end
 

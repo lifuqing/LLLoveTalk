@@ -1,6 +1,6 @@
 //
 //  LLTagExampleListViewController.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/8.
 //
@@ -134,7 +134,7 @@
 
 ///parser所在的urlconfig类
 - (nonnull Class)requestListURLConfigClassForListController:(nonnull LLContainerListViewController *)listController {
-    return [LLLoveTalkURLConfig class];
+    return [LLAiLoveURLConfig class];
 }
 
 ///列表请求额外配置的参数，内部refresh第一页数据请求的时候会清空参数，需要重新传参。

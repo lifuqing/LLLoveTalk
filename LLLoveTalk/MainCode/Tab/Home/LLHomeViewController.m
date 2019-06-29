@@ -1,6 +1,6 @@
 //
 //  LLHomeViewController.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
@@ -39,7 +39,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _listDataSource = [[LLListBaseDataSource alloc] initWithDelegate:self parser:@"HomeListParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+        _listDataSource = [[LLListBaseDataSource alloc] initWithDelegate:self parser:@"HomeListParser" urlConfigClass:[LLAiLoveURLConfig class]];
         _list = [NSMutableArray array];
     }
     return self;
@@ -77,7 +77,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
     if (!_requestKeywordsTimer) {
         _requestKeywordsTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(startRequestKeywords) userInfo:nil repeats:YES];
     }
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"SearchKeywordsParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"SearchKeywordsParser" urlConfigClass:[LLAiLoveURLConfig class]];
     WEAKSELF();
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         if ([model isKindOfClass:[LLSearchKeywordsModel class]]) {
@@ -221,7 +221,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 - (UIView *)searchBar {
     if (!_searchBar) {
         _searchBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 55)];
-        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:kDefaultSearchString font:[UIFont systemFontOfSize:18] textColor:RGBS(210) selector:@selector(searchButtonActionClick:)];
+        UIButton *searchButton = [UIButton ll_buttonWithFrame:CGRectMake(15, 8, _searchBar.width - 30, 38) target:self title:kDefaultSearchString font:[UIFont systemFontOfSize:18] textColor:[UIColor grayColor] selector:@selector(searchButtonActionClick:)];
         searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         searchButton.layer.cornerRadius = 8;
         searchButton.backgroundColor = [UIColor whiteColor];

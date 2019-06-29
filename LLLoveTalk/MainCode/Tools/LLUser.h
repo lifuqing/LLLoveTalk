@@ -1,17 +1,17 @@
 //
 //  LLUser.h
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const kUserInfoChangedNotification;
 extern NSString *const kUserLoginStateChangedNotification;
 extern NSString *const kUserVIPChangedNotification;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface LLUser : NSObject
 @property (nonatomic, assign, getter=isLogin) BOOL login;

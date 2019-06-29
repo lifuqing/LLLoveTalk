@@ -1,6 +1,6 @@
 //
 //  LLUser.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
@@ -75,7 +75,7 @@ NSString *const kIAPProductIdKey = @"productId";
 #pragma mark - public
 
 - (void)sendCodeWithPhone:(NSString *)phone completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"SendCodeParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"SendCodeParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [llurl.params setValue:phone forKey:@"phone"];
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         if (completion) {
@@ -89,7 +89,7 @@ NSString *const kIAPProductIdKey = @"productId";
 }
 
 - (void)loginWithPhone:(NSString *)phone code:(NSString *)code completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"LoginParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"LoginParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [llurl.params setValue:phone forKey:@"phone"];
     [llurl.params setValue:code forKey:@"code"];
     WEAKSELF();
@@ -110,7 +110,7 @@ NSString *const kIAPProductIdKey = @"productId";
 }
 
 - (void)modifyUserName:(NSString *)username completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"ModifyUserParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"ModifyUserParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [llurl.params setValue:username forKey:@"username"];
     [llurl.params setValue:self.phone forKey:@"phone"];
     WEAKSELF();
@@ -131,7 +131,7 @@ NSString *const kIAPProductIdKey = @"productId";
 
 - (void)fetchUserInfoCompletion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
     if (self.isLogin) {
-        LLURL *llurl = [[LLURL alloc] initWithParser:@"GetUserInfoParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+        LLURL *llurl = [[LLURL alloc] initWithParser:@"GetUserInfoParser" urlConfigClass:[LLAiLoveURLConfig class]];
         [llurl.params setValue:self.phone forKey:@"phone"];
         WEAKSELF();
         [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
@@ -254,7 +254,7 @@ NSString *const kIAPProductIdKey = @"productId";
 
 - (void)uploadBuyProductId:(NSString *)productId receiptBase64:(NSString *)receiptBase64 completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
     WEAKSELF();
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"BuyProductNotifyParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"BuyProductNotifyParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [llurl.params setValue:[LLUser sharedInstance].phone ?:@"" forKey:@"phone"];
     [llurl.params setValue:productId forKey:@"productid"];
     [llurl.params setValue:receiptBase64 forKey:@"receipt"];

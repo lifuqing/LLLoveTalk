@@ -1,6 +1,6 @@
 //
 //  LLBuyVipViewController.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/15.
 //
@@ -66,7 +66,7 @@
     //self.productIds = [NSMutableSet setWithObjects:@"com.lianai.loveTalk.1", @"com.lianai.loveTalk.3", @"com.lianai.loveTalk.4", nil];
     
     WEAKSELF();
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLAiLoveURLConfig class]];
     
     NSDictionary *localDic = [[LLURLCacheManager sharedInstance] getCacheData:llurl.dataCacheIdentifier];
     if (!localDic) {

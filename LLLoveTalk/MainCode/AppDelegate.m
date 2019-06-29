@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  LLLoveTalk
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
@@ -72,7 +72,7 @@
 
 - (void)checkState {
     WEAKSELF();
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"InitParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"InitParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         BOOL ischeck = [result[@"data"][@"state"] boolValue];
         if (ischeck) {
@@ -124,7 +124,7 @@
     //self.productIds = [NSMutableSet setWithObjects:@"com.lianai.loveTalk.1", @"com.lianai.loveTalk.3", @"com.lianai.loveTalk.4", nil];
     
     WEAKSELF();
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLLoveTalkURLConfig class]];
+    LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLAiLoveURLConfig class]];
     
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         LLProductListResponseModel *productListModel = (LLProductListResponseModel *)model;

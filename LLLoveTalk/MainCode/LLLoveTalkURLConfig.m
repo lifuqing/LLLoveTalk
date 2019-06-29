@@ -1,16 +1,16 @@
 //
-//  LLLoveTalkURLConfig.m
-//  LLLoveTalk
+//  LLAiLoveURLConfig.m
+//  LLAiLove
 //
 //  Created by lifuqing on 2019/4/5.
 //
 
-#import "LLLoveTalkURLConfig.h"
-@interface LLLoveTalkURLConfig ()
+#import "LLAiLoveURLConfig.h"
+@interface LLAiLoveURLConfig ()
 @property (nonatomic, copy) NSString *server;
 @end
 
-@implementation LLLoveTalkURLConfig
+@implementation LLAiLoveURLConfig
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -25,6 +25,7 @@
     [dict setValue:@([LLConfig sharedInstance].isCheck) forKey:@"check_state"];
     [dict setValue:[LLUser sharedInstance].phone ?:@"" forKey:@"phone"];
     [dict setValue:@"ios" forKey:@"channel"];
+    [dict setValue:[[NSBundle mainBundle] bundleIdentifier] forKey:@"bundleId"];
     return [dict copy];
 }
 
