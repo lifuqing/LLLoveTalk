@@ -15,6 +15,7 @@
 
 @interface AppDelegate ()
 
+
 @end
 
 @implementation AppDelegate
@@ -25,11 +26,11 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    [LLConfig sharedInstance].isDebug = NO;
-    [LLConfig sharedInstance].isNeedLog = NO;
+    [LLConfig sharedInstance].isDebug = YES;
+    [LLConfig sharedInstance].isNeedLog = YES;
     
     [LLURLCacheManager sharedInstance].userID = ^NSString *{
-        return [LLUser sharedInstance].phone;
+        return [LLUser sharedInstance].userid;
     };
     
     [self configUI];
@@ -60,6 +61,10 @@
 }
 
 - (void)registerSomething {
+    
+    // 初始化OSSClient实例
+    [self setupOSSClient];
+    
     if ([LLUser sharedInstance].isLogin && ![LLUser sharedInstance].isSuperVIP) {
         [self observeIAPStatus];
     }
@@ -69,14 +74,39 @@
     [[LLUser sharedInstance] fetchUserInfoCompletion:nil];
 }
 
+- (void)setupOSSClient {
+    
+    // 初始化具有自动刷新的provider
+//    OSSAuthCredentialProvider *credentialProvider = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:[LLConfig sharedInstance].OSS_STS_URL];
+    
+    OSSCustomSignerCredentialProvider *provider = [[OSSCustomSignerCredentialProvider alloc] initWithImplementedSigner:^NSString *(NSString *contentToSign, NSError *__autoreleasing *error) {
+        
+        // 用户应该在此处将需要签名的字符串发送到自己的业务服务器(AK和SK都在业务服务器保存中,从业务服务器获取签名后的字符串)
+        OSSFederationToken *token = [OSSFederationToken new];
+        token.tAccessKey = [LLConfig sharedInstance].OSS_ACCESSKEY;
+        token.tSecretKey = [LLConfig sharedInstance].OSS_SECRETKEY;
+        
+        NSString *signedContent = [OSSUtil sign:contentToSign withToken:token];
+        return signedContent;
+    }];
+    
+    NSError *error;
+    NSLog(@"%@",[provider sign:@"abc" error:&error]);
+    
+    // client端的配置,如超时时间，开启dns解析等等
+    OSSClientConfiguration *cfg = [[OSSClientConfiguration alloc] init];
+    
+    _client = [[OSSClient alloc] initWithEndpoint:[LLConfig sharedInstance].OSS_ENDPOINT credentialProvider:provider clientConfiguration:cfg];
+    
+}
 
 - (void)checkState {
     WEAKSELF();
     LLURL *llurl = [[LLURL alloc] initWithParser:@"InitParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         BOOL ischeck = [result[@"data"][@"state"] boolValue];
+        [LLConfig sharedInstance].isPassedCheck = !ischeck;
         if (ischeck) {
-            [LLConfig sharedInstance].isCheck = ischeck;
             NSString *message = result[@"data"][@"alert_box"];
             if (message) {
                 [weakSelf showAlertWithMessage:message];
@@ -121,8 +151,6 @@
 
 
 - (void)observeIAPStatus {
-    //self.productIds = [NSMutableSet setWithObjects:@"com.lianai.loveTalk.1", @"com.lianai.loveTalk.3", @"com.lianai.loveTalk.4", nil];
-    
     WEAKSELF();
     LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLAiLoveURLConfig class]];
     

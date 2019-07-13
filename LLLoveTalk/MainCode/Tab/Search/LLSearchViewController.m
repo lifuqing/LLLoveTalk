@@ -22,6 +22,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.listDelegate = self;
+        self.enablePreLoad = YES;
+        self.enableTableBottomView = YES;
     }
     return self;
 }

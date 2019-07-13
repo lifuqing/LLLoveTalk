@@ -7,6 +7,8 @@
 
 #import "LLLoginViewController.h"
 #import "UIButton+LLTools.h"
+#import "UIImage+LLTools.h"
+#import "LLInviteCodeViewController.h"
 
 @interface LLLoginViewController ()
 @property (nonatomic, strong) UIView *contentView;
@@ -20,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self addTopCloseWithTitle:@"登录"];
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.loginButton];
@@ -63,7 +66,14 @@
         [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
         [MBProgressHUD showMessage:errorMsg inView:strongSelf.view autoHideTime:1 interactionEnabled:!success completion:^{
             if (success) {
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                if ([LLUser sharedInstance].isnew) {
+                    [weakSelf dismissViewControllerAnimated:NO completion:^{
+                        LLInviteCodeViewController *vc = [[LLInviteCodeViewController alloc] init];
+                        [LLNav pushViewController:vc animated:YES];
+                    }];
+                }
+                else
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }
         }];
     }];
@@ -88,7 +98,7 @@
                 
                 //设置按钮的样式
                 [self.sendCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
-                [self.sendCodeButton setBackgroundColor:LLTheme.mainColor];
+                self.sendCodeButton.enabled = YES;
                 self.sendCodeButton.userInteractionEnabled = YES;
             });
             
@@ -98,9 +108,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 //设置按钮显示读秒效果
-                [self.sendCodeButton setTitle:[NSString stringWithFormat:@"重新发送(%.2d)", seconds] forState:UIControlStateNormal];
-                [self.sendCodeButton setBackgroundColor:[UIColor grayColor]];
-                
+                [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%.2d", seconds] forState:UIControlStateNormal];
+                self.sendCodeButton.enabled = NO;
                 self.sendCodeButton.userInteractionEnabled = NO;
             });
             time--;
@@ -112,71 +121,72 @@
 #pragma mark - lazyloading
 - (UIView *)contentView {
     if (!_contentView) {
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navBar.bottom + 25, self.view.width, 114)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navBar.bottom + 56, self.view.width, 185 + 56)];
         
+        UIImageView *slogon = [[UIImageView alloc] initWithImage:LLImage(@"icon_login_slogon")];
+        slogon.center = CGPointMake(_contentView.width/2.0, 28);
         
-        UIView *bg1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _contentView.width, 47)];
-        bg1.backgroundColor = LLTheme.auxiliaryColor;
+        CGFloat topSpcace = 60;
+        
         UIImageView *userIcon = [[UIImageView alloc] initWithImage:LLImage(@"icon_login_user")];
-        userIcon.frame = CGRectMake(15, 3.5, 40, 40);
-        _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(userIcon.right + 5, 3.5, _contentView.width - 5 - userIcon.right - 15, 40)];
-        _phoneTextField.backgroundColor = [UIColor whiteColor];
-        _phoneTextField.layer.cornerRadius = 6;
-        _phoneTextField.layer.masksToBounds = YES;
+        userIcon.frame = CGRectMake(15, slogon.bottom + topSpcace, 18, 19);
+        
+        _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(48, userIcon.top + 2, _contentView.width - 15 - 48, 17)];
+        _phoneTextField.backgroundColor = [UIColor clearColor];
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.placeholder = @"请输入手机号码";
-        _phoneTextField.font = [UIFont systemFontOfSize:16];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
-        _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
-        _phoneTextField.leftView = leftView;
+        _phoneTextField.font = [UIFont fontWithName:@"PingFang-SC-Medium" size: 16];
         _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
     
+        UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(15, userIcon.bottom+8, _contentView.width - 30, 1)];
+        line1.backgroundColor = LLTheme.lineColor;
         
-        [bg1 addSubview:userIcon];
-        [bg1 addSubview:_phoneTextField];
         
+        CGFloat sendCodeBtnWidth = 100;
         
-        UIView *bg2 = [[UIView alloc] initWithFrame:CGRectMake(0, bg1.bottom + 20, _contentView.width, 47)];
-        bg2.backgroundColor = LLTheme.auxiliaryColor;
         UIImageView *codeIcon = [[UIImageView alloc] initWithImage:LLImage(@"icon_login_code")];
-        codeIcon.frame = CGRectMake(15, 3.5, 40, 40);
-        _codeTextField = [[UITextField alloc] initWithFrame:CGRectMake(codeIcon.right + 5, 3.5, _contentView.width - 5 - codeIcon.right - 15, 40)];
-        _codeTextField.backgroundColor = [UIColor whiteColor];
-        _codeTextField.layer.cornerRadius = 6;
-        _codeTextField.layer.masksToBounds = YES;
+        codeIcon.frame = CGRectMake(15, line1.bottom + 34, 18, 19);
+        
+        _codeTextField = [[UITextField alloc] initWithFrame:CGRectMake(_phoneTextField.left, line1.bottom + 36, _contentView.width - 48 - sendCodeBtnWidth - 15 - 10, 17)];
+        _codeTextField.backgroundColor = [UIColor clearColor];
+        _codeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _codeTextField.placeholder = @"请输入验证码";
-        _codeTextField.font = [UIFont systemFontOfSize:16];
-        UIView *leftView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
-        _codeTextField.leftViewMode = UITextFieldViewModeAlways;
-        _codeTextField.leftView = leftView2;
+        _codeTextField.font = [UIFont fontWithName:@"PingFang-SC-Medium" size: 16];
         _codeTextField.keyboardType = UIKeyboardTypePhonePad;
 
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(15, codeIcon.bottom+8, _contentView.width - 30, 1)];
+        line2.backgroundColor = LLTheme.lineColor;
         
-        _sendCodeButton = [UIButton ll_buttonWithFrame:CGRectMake(bg2.width - 20 - 97, (bg2.height - 25)/2.0, 97, 25) target:self title:@"发送验证码" font:[UIFont systemFontOfSize:12] textColor:[UIColor whiteColor] selector:@selector(sendCodeButtonActionClick:)];
-        [_sendCodeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-        _sendCodeButton.backgroundColor = LLTheme.mainColor;
+        _sendCodeButton = [UIButton ll_buttonWithFrame:CGRectMake(_contentView.width - 15 - sendCodeBtnWidth, line1.bottom + 29, sendCodeBtnWidth, 30) target:self title:@"发送验证码" font:[UIFont fontWithName:@"PingFang-SC-Medium" size: 16] textColor:[UIColor whiteColor] selector:@selector(sendCodeButtonActionClick:)];
+        [_sendCodeButton setBackgroundImage:[UIImage ll_createImageWithColor:RGBS(208)] forState:UIControlStateDisabled];
+        [_sendCodeButton setBackgroundImage:[UIImage ll_createImageWithColor:LLTheme.mainColor] forState:UIControlStateNormal];
         _sendCodeButton.layer.cornerRadius = 6;
         _sendCodeButton.layer.masksToBounds = YES;
         _sendCodeButton.enabled = NO;
+        _sendCodeButton.adjustsImageWhenHighlighted = NO;
         
-        [bg2 addSubview:codeIcon];
-        [bg2 addSubview:_codeTextField];
-        [bg2 addSubview:_sendCodeButton];
         
-        [_contentView addSubview:bg1];
-        [_contentView addSubview:bg2];
+        [_contentView addSubview:slogon];
+        [_contentView addSubview:userIcon];
+        [_contentView addSubview:_phoneTextField];
+        [_contentView addSubview:line1];
+        [_contentView addSubview:codeIcon];
+        [_contentView addSubview:_codeTextField];
+        [_contentView addSubview:line2];
+        [_contentView addSubview:_sendCodeButton];
     }
     return _contentView;
 }
 
 - (UIButton *)loginButton {
     if (!_loginButton) {
-        _loginButton = [UIButton ll_buttonWithFrame:CGRectMake(15, _contentView.bottom + 37, self.view.width - 30, 37) target:self title:@"登录" font:[UIFont systemFontOfSize:19] textColor:[UIColor whiteColor] selector:@selector(loginButtonActionClick:)];
-        [_loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-        _loginButton.backgroundColor = LLTheme.mainColor;
+        _loginButton = [UIButton ll_buttonWithFrame:CGRectMake(15, _contentView.bottom, self.view.width - 30, 44) target:self title:@"登录" font:[UIFont fontWithName:@"PingFang-SC-Bold" size: 16] textColor:[UIColor whiteColor] selector:@selector(loginButtonActionClick:)];
+        [_loginButton setBackgroundImage:[UIImage ll_createImageWithColor:RGBS(208)] forState:UIControlStateDisabled];
+        [_loginButton setBackgroundImage:[UIImage ll_createImageWithColor:LLTheme.mainColor] forState:UIControlStateNormal];
         _loginButton.layer.cornerRadius = 6;
         _loginButton.layer.masksToBounds = YES;
         _loginButton.enabled = NO;
+        _loginButton.adjustsImageWhenHighlighted = NO;
     }
     return _loginButton;
 }

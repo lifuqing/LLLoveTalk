@@ -31,6 +31,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.listDelegate = self;
+        self.enablePreLoad = YES;
+        self.enableTableBottomView = YES;
     }
     return self;
 }
@@ -76,7 +78,7 @@
 
 #pragma mark - action
 - (void)searchButtonActionClick:(UIButton *)sender {
-    if ([LLConfig sharedInstance].isCheck) {
+    if (![LLConfig sharedInstance].isPassedCheck) {
         LLSearchViewController *vc = [[LLSearchViewController alloc] init];
         [LLNav pushViewController:vc animated:YES];
     }

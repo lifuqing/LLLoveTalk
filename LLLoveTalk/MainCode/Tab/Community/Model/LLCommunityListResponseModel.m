@@ -8,9 +8,16 @@
 #import "LLCommunityListResponseModel.h"
 @implementation LLCommunityItemModel
 
+- (NSDictionary *)textAttributes {
+    return @{NSFontAttributeName:[UIFont fontWithName:@"PingFang-SC-Medium" size: 14], NSForegroundColorAttributeName:LLTheme.titleSecondColor};
+}
 @end
 
 
 @implementation LLCommunityListResponseModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"list" : [LLCommunityItemModel class]};
+}
 
 @end

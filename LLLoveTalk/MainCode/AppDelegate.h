@@ -11,6 +11,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, strong) OSSClient *client;
 
 @end
 

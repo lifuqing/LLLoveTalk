@@ -10,10 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LLUserTableViewCell : LLBaseTableViewCell
+@property (nonatomic, strong, readonly) UIImageView *arrow;
 
-@property (nonatomic, strong) UIImageView *thumbView;
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *descLabel;
+@property (nonatomic, strong, nullable) UIImageView *thumbView;
+@property (nonatomic, strong, nullable) UILabel *titleLabel;
+@property (nonatomic, strong, nullable) UILabel *descLabel;
+@property (nonatomic, strong, nullable) UITextField *descTextField;
+
+- (void)configUIWithImage:(nullable UIImage *)image title:(nullable NSString *)title desc:(nullable NSString *)desc descTextField:(nullable NSString *)descTextField descPlaceholder:(nullable NSString *)descPlaceholder;
 @end
 
 NS_ASSUME_NONNULL_END

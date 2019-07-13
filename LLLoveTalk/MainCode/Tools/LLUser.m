@@ -18,6 +18,10 @@ NSString *const kUsername                   = @"com.user.username";
 NSString *const kUserPhone                  = @"com.user.phone";
 NSString *const kUserIsVip                  = @"com.user.isVip";
 NSString *const kUserRemainDays             = @"com.user.remaindays";
+NSString *const kUserId                     = @"com.user.userid";
+NSString *const kUserSig_love               = @"com.user.sig_love";
+NSString *const kUserSig_self               = @"com.user.sig_self";
+NSString *const kUserHead_file              = @"com.user.head_file";
 
 
 NSString *const kIAPReceiptKey = @"receipt";
@@ -48,11 +52,15 @@ NSString *const kIAPProductIdKey = @"productId";
     self = [super init];
     if (self) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        self.username   = [userDefaults objectForKey:kUsername];
-        self.phone      = [userDefaults objectForKey:kUserPhone];
+        self.username   = [userDefaults stringForKey:kUsername];
+        self.phone      = [userDefaults stringForKey:kUserPhone];
         self.ispaid     = [userDefaults boolForKey:kUserIsVip];
-        self.remaindays  = [userDefaults integerForKey:kUserRemainDays];
-        self.login = [userDefaults boolForKey:kUserIsLogin];
+        self.remaindays = [userDefaults integerForKey:kUserRemainDays];
+        self.login      = [userDefaults boolForKey:kUserIsLogin];
+        self.userid     = [userDefaults stringForKey:kUserId];
+        self.sig_self   = [userDefaults stringForKey:kUserSig_self];
+        self.sig_love   = [userDefaults stringForKey:kUserSig_love];
+        self.head_file  = [userDefaults stringForKey:kUserHead_file];
         
         if (self.isLogin && self.phone) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -109,14 +117,34 @@ NSString *const kIAPProductIdKey = @"productId";
     }];
 }
 
-- (void)modifyUserName:(NSString *)username completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"ModifyUserParser" urlConfigClass:[LLAiLoveURLConfig class]];
-    [llurl.params setValue:username forKey:@"username"];
-    [llurl.params setValue:self.phone forKey:@"phone"];
+- (void)modifyUserInfo:(NSString *)text type:(EModifyInfoType)type completion:(void (^ __nullable)(BOOL success, NSString *__nullable errorMsg))completion {
+    NSString *parser = @"";
+    NSDictionary *dict = nil;
+    if (type == EModifyInfoTypeUserName) {
+        parser = @"ModifyUserParser";
+        dict = @{@"username":text?:@""};
+    } else if (type == EModifyInfoTypeSigSelf) {
+        parser = @"ModifySigSelfParser";
+        dict = @{@"sigself":text?:@""};
+    } else if (type == EModifyInfoTypeSigLove) {
+        parser = @"ModifySigLoveParser";
+        dict = @{@"siglove":text?:@""};
+    }
+    
+    LLURL *llurl = [[LLURL alloc] initWithParser:parser urlConfigClass:[LLAiLoveURLConfig class]];
+    [llurl.params addEntriesFromDictionary:dict];
     WEAKSELF();
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         STRONGSELF();
-        strongSelf.username = username;
+        
+        if (type == EModifyInfoTypeUserName) {
+            strongSelf.username = text;
+        } else if (type == EModifyInfoTypeSigSelf) {
+            strongSelf.sig_self = text;
+        } else if (type == EModifyInfoTypeSigLove) {
+            strongSelf.sig_love = text;
+        }
+        
         [strongSelf storeUserInfoToUserDefault];
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChangedNotification object:nil];
         if (completion) {
@@ -159,12 +187,22 @@ NSString *const kIAPProductIdKey = @"productId";
         self.username = userModel.username;
         self.ispaid = userModel.ispaid;
         self.remaindays = userModel.remaindays;
+        self.userid = userModel.userid;
+        self.sig_love = userModel.sig_love;
+        self.sig_self = userModel.sig_self;
+        self.isnew = userModel.isnew;
+        self.head_file = userModel.head_file;
     }
     else {
         self.phone = nil;
         self.username = nil;
         self.ispaid = NO;
         self.remaindays = 0;
+        self.userid = nil;
+        self.sig_love = nil;
+        self.sig_self = nil;
+        self.isnew = NO;
+        self.head_file = nil;
     }
     
     [self storeUserInfoToUserDefault];
@@ -181,8 +219,13 @@ NSString *const kIAPProductIdKey = @"productId";
     [userDefaults setValue:self.username forKey:kUsername];
     [userDefaults setBool:self.ispaid forKey:kUserIsVip];
     [userDefaults setInteger:self.remaindays forKey:kUserRemainDays];
+    [userDefaults setValue:self.head_file forKey:kUserHead_file];
     
     [userDefaults setBool:self.isLogin forKey:kUserIsLogin];
+    
+    [userDefaults setValue:self.userid forKey:kUserId];
+    [userDefaults setValue:self.sig_self forKey:kUserSig_self];
+    [userDefaults setValue:self.sig_love forKey:kUserSig_love];
     
     [userDefaults synchronize];
 }

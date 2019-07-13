@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addCloseBarItemWithTitle:(NSString *)title;
 
+- (void)createRightItemWithImage:(UIImage *)image action:(nullable SEL)action;
+
 //增加导航栏标题
 - (void)addTitleToNavBar:(NSString *)title;
 

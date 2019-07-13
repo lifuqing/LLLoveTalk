@@ -8,10 +8,13 @@
 #import "LLTabBarViewController.h"
 #import "LLHomeViewController.h"
 #import "LLCommunityViewController.h"
+#import "LLAiChatViewController.h"
+#import "LLAiChatViewController.h"
 #import "LLUserViewController.h"
 #import "LLBaseNavigationController.h"
+#import "LLLoginViewController.h"
 
-@interface LLTabBarViewController ()
+@interface LLTabBarViewController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -39,17 +42,28 @@
         vc1.title = @"恋爱话术";
         LLCommunityViewController *vc2 = [[LLCommunityViewController alloc] init];
         vc2.title = @"情感广场";
-        LLUserViewController *vc3 = [[LLUserViewController alloc] init];
-        vc3.title = @"我的";
+        LLAiChatViewController *vc3 = [[LLAiChatViewController alloc] init];
+        vc3.title = @"AI小蜜";
+        LLUserViewController *vc4 = [[LLUserViewController alloc] init];
+        vc4.title = @"我的";
         
         LLBaseNavigationController *nav1 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc1 title:vc1.title image:LLImage(@"tab_home_normal") selectedImage:LLImage(@"tab_home_selected")]];
         
-        LLBaseNavigationController *nav2 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc2 title:vc2.title image:LLImage(@"tab_chat_normal") selectedImage:LLImage(@"tab_chat_selected")]];
+        LLBaseNavigationController *nav2 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc2 title:vc2.title image:LLImage(@"tab_community_normal") selectedImage:LLImage(@"tab_community_selected")]];
         
-        LLBaseNavigationController *nav3 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc3 title:vc3.title image:LLImage(@"tab_my_normal") selectedImage:LLImage(@"tab_my_selected")]];
+        LLBaseNavigationController *nav3 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc3 title:vc3.title image:LLImage(@"tab_ai_normal") selectedImage:LLImage(@"tab_ai_selected")]];
         
+        LLBaseNavigationController *nav4 = [[LLBaseNavigationController alloc] initWithRootViewController:[self configViewController:vc4 title:vc4.title image:LLImage(@"tab_my_normal") selectedImage:LLImage(@"tab_my_selected")]];
         
-        self.viewControllers = @[nav1, nav2, nav3];
+        if (![LLConfig sharedInstance].isPassedCheck) {
+            self.viewControllers = @[nav2, nav3, nav4];
+        }
+        else {
+            self.viewControllers = @[nav1, nav2, nav3, nav4];
+        }
+        
+        self.delegate = self;
+        
     }
     return self;
 }
@@ -82,6 +96,22 @@
     viewController.tabBarItem.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     viewController.tabBarItem.selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return viewController;
+}
+
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (![LLUser sharedInstance].isLogin) {
+        NSInteger aiPosition = 1;
+        if ([LLConfig sharedInstance].isPassedCheck) {
+            aiPosition = 2;
+        }
+        if ([tabBarController.viewControllers indexOfObject:viewController] == aiPosition) {
+            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+            [[LLNav topViewController] presentViewController:vc animated:YES completion:nil];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

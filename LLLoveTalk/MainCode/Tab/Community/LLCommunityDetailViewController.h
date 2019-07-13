@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LLCommunityDetailViewController : LLContainerListViewController
 
-- (instancetype)initWithCommunityItemModel:(LLCommunityItemModel *)model;
+- (instancetype)initWithContentid:(NSString *)contentid;
 @end
 
 NS_ASSUME_NONNULL_END

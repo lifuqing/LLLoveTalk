@@ -168,7 +168,7 @@ static NSString * const kCellIdentifier = @"kCellIdentifier";
 
 #pragma mark - action
 - (void)searchButtonActionClick:(UIButton *)sender {
-    if ([LLConfig sharedInstance].isCheck) {
+    if (![LLConfig sharedInstance].isPassedCheck) {
         LLSearchViewController *vc = [[LLSearchViewController alloc] init];
         NSString *str = [self.searchButton titleForState:UIControlStateNormal];
         if (![str isEqualToString:kDefaultSearchString]) {

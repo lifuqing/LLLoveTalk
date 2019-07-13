@@ -10,8 +10,8 @@
 @implementation LLTheme
 
 + (UIColor *)mainColor {
-    return RGB(215, 173, 210);
-//    return RGB(220, 89, 119);
+//    return RGB(215, 173, 210);
+    return RGB(220, 89, 119);
 }
 
 + (UIColor *)auxiliaryColor {
@@ -33,6 +33,19 @@
 + (UIColor *)subTitleColor {
     return RGBS(137);
 }
+
++ (UIColor *)lineColor {
+    return RGBS(241);
+}
+
++ (UIColor *)titleSecondColor {
+    return RGBS(51);
+}
+
++ (UIColor *)grayTextColor {
+    return RGBS(153);
+}
+
 @end
 
 @implementation LLTheme (TabBar)
@@ -41,7 +54,7 @@
     return [UIColor whiteColor];
 }
 + (UIColor *)tabbarNormalColor {
-    return [self mainColor];
+    return RGBS(153);
 }
 + (UIColor *)tabbarSelectedColor {
     return [self mainColor];

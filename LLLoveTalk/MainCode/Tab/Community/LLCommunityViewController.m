@@ -9,6 +9,8 @@
 #import "LLCommunityListResponseModel.h"
 #import "LLCommunityListTableViewCell.h"
 #import "LLCommunityDetailViewController.h"
+#import "LLCommunityNewStatusViewController.h"
+#import "LLLoginViewController.h"
 
 @interface LLCommunityViewController () <LLContainerListDelegate>
 
@@ -20,14 +22,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.listDelegate = self;
+        self.enablePreLoad = YES;
+        self.enableTableBottomView = YES;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addTitleToNavBar:@"情感广场"];
+    [self createRightItemWithImage:LLImage(@"btn_nav_edit") action:@selector(editNewItem:)];
     // Do any additional setup after loading the view.
     [self requestData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communityNewStatusCreateSuccessNotification:) name:@"kCommunityNewStatusCreateSuccessNotification" object:nil];
 }
 
 - (void)dealloc {
@@ -38,8 +45,27 @@
 #pragma mark - public
 
 #pragma mark - private
+- (void)requestListDataSuccessWithArray:(NSArray *)array {
+    [super requestListDataSuccessWithArray:array];
+    
+}
+
+- (void)communityNewStatusCreateSuccessNotification:(NSNotification *)notify {
+    [self requestData];
+}
 
 #pragma mark - action
+
+- (void)editNewItem:(id)sender {
+    if ([LLUser sharedInstance].isLogin) {
+        LLCommunityNewStatusViewController *vc = [[LLCommunityNewStatusViewController alloc] init];
+        [LLNav pushViewController:vc animated:YES];
+    }
+    else {
+        LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+}
 
 #pragma mark - lazyloading
 
@@ -48,7 +74,7 @@
 
 ///列表请求在URLConfig里面的Parser唯一标识
 - (nonnull NSString *)requestListParserForListController:(nonnull LLContainerListViewController *)listController {
-    return @"LoveListParser";
+    return @"LoveCommunityListParser";
 }
 
 ///parser所在的urlconfig类
@@ -56,9 +82,6 @@
     return [LLAiLoveURLConfig class];
 }
 
-//- (nullable NSDictionary *)requestListPargamsForListController:(nonnull LLContainerListViewController *)listController {
-//    return @{@"phone":[LLUser sharedInstance].phone ?:@""};
-//}
 /**
  * List Content
  * @brief 列表内容
@@ -83,7 +106,7 @@
 - (void)listController:(LLContainerListViewController *)listController didSelectedCellAtIndexPath:(NSIndexPath *)indexPath {
     LLCommunityItemModel *model = self.listArray[indexPath.row];
     
-    LLCommunityDetailViewController *vc = [[LLCommunityDetailViewController alloc] initWithCommunityItemModel:model];
+    LLCommunityDetailViewController *vc = [[LLCommunityDetailViewController alloc] initWithContentid:model.contentid];
     [LLNav pushViewController:vc animated:YES];
     
 }

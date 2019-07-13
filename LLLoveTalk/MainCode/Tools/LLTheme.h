@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)titleColor;
 + (UIColor *)subTitleColor;
+
++ (UIColor *)lineColor;
++ (UIColor *)titleSecondColor;
++ (UIColor *)grayTextColor;
 @end
 
 @interface LLTheme (TabBar)

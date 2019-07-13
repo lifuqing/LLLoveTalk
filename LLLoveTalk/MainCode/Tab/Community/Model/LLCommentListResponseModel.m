@@ -7,8 +7,15 @@
 
 #import "LLCommentListResponseModel.h"
 @implementation LLCommentItemModel
+- (NSDictionary *)textAttributes {
+    return @{NSFontAttributeName:[UIFont fontWithName:@"PingFang-SC-Medium" size: 14], NSForegroundColorAttributeName:LLTheme.titleSecondColor};
+}
 @end
 
 @implementation LLCommentListResponseModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"list" : [LLCommentItemModel class]};
+}
 
 @end

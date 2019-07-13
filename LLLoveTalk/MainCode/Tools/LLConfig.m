@@ -25,20 +25,41 @@
     return config;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        _isPassedCheck = [userDefaults boolForKey:@"com.config.isPassedCheck"];
+    }
+    return self;
+}
+- (void)setIsPassedCheck:(BOOL)isPassedCheck {
+    _isPassedCheck = isPassedCheck;
+    [[NSUserDefaults standardUserDefaults] setBool:isPassedCheck forKey:@"com.config.isPassedCheck"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 - (NSDictionary *)configDictionary{
     return @{@"debug"   : @{@"server"   : @"http://api.dgthp.com",
+                            @"serverNew": @"http://47.110.158.235:5000",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
              @"release" : @{@"server"   : @"http://api.dgthp.com",
+                            @"serverNew": @"",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
-             @"shareSecret": @"778cb59a5a2d403a9abbd40fc6a78de9"
+             @"shareSecret": @"778cb59a5a2d403a9abbd40fc6a78de9",
+             @"OSSClient":@{
+                     @"OSS_ACCESSKEY" : @"LTAIrik5fP8d0Ecl",
+                     @"OSS_SECRETKEY" : @"WzpjdK8JkqChIzeGTMNDF7KJSltTZ8",
+                     @"OSS_BUCKETNAME" : @"lianaibaodian123",
+                     @"OSS_ENDPOINT" : @"http://oss-cn-shanghai.aliyuncs.com"
+                     }
              };
 }
 -(void)loadConfig
@@ -52,8 +73,14 @@
     self.secret = [[[dict objectForKey:mode] objectForKey:@"secret"] objectForKey:@"iphone"];
     
     self.server = [[dict objectForKey:mode] objectForKey:@"server"];
+    self.serverNew = dict[mode][@"serverNew"];
     
     self.shareSecret = dict[@"shareSecret"];
+    
+    self.OSS_ACCESSKEY = dict[@"OSSClient"][@"OSS_ACCESSKEY"];
+    self.OSS_SECRETKEY = dict[@"OSSClient"][@"OSS_SECRETKEY"];
+    self.OSS_BUCKETNAME = dict[@"OSSClient"][@"OSS_BUCKETNAME"];
+    self.OSS_ENDPOINT = dict[@"OSSClient"][@"OSS_ENDPOINT"];
 }
 
 

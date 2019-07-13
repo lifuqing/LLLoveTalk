@@ -34,6 +34,18 @@
     self.navigationItem.leftBarButtonItem = backNavigationItem;
 }
 
+- (void)createRightItemWithImage:(UIImage *)image action:(nullable SEL)action {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 30, 30);
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -(25-image.size.width), 0, 0)];
+    [btn setImage:image forState:UIControlStateNormal];
+    btn.adjustsImageWhenHighlighted = NO;
+    [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
 - (void)commonPushBack {
     if (self.navigationController && self.navigationController.viewControllers.count > 1) {
         [self.navigationController popViewControllerAnimated:YES];
