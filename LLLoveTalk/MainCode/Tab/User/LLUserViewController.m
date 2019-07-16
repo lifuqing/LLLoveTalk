@@ -199,7 +199,7 @@
         _headIconView.backgroundColor = RGBS(245);
         _headIconView.layer.cornerRadius = 6;
         _headIconView.layer.masksToBounds = YES;
-        _headIconView.contentMode = UIViewContentModeCenter;
+        _headIconView.contentMode = UIViewContentModeScaleAspectFill;
         
         _titleLabel = [UILabel ll_labelWithFrame:CGRectMake(_headIconView.right + 15, _headIconView.top + 13, bgView.width - _headIconView.right - 15, 16) text:@"" font:[UIFont fontWithName:@"PingFang-SC-Bold" size: 16] textColor:LLTheme.titleSecondColor textAlign:NSTextAlignmentLeft];
         
@@ -275,7 +275,7 @@
         }
         else if (indexPath.section == 1) {
             if ([LLUser sharedInstance].isSuperVIP) {
-                [cell configUIWithImage:LLImage(@"my_vip") title:@"您已是永久会员:" desc:nil descTextField:nil descPlaceholder:nil];
+                [cell configUIWithImage:LLImage(@"my_vip") title:@"您已是永久会员" desc:nil descTextField:nil descPlaceholder:nil];
             }
             else {
                 [cell configUIWithImage:LLImage(@"my_vip") title:@"升级高级用户" desc:nil  descTextField:nil descPlaceholder:nil];

@@ -7,11 +7,34 @@
 
 #import "LLMessage.h"
 #import "JSQPhotoMediaItem.h"
+#import "JSQMessagesMediaViewBubbleImageMasker.h"
+#import "JSQMessagesBubbleImageFactory.h"
+
+@implementation LLPhotoMediaItem
+- (UIView *)mediaView
+{
+    UIView *view = [super mediaView];
+    if (view) {
+        BOOL isOutgoing = self.appliesMediaViewMaskAsOutgoing;
+        JSQMessagesBubbleImageFactory *factory =  [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:LLImage(@"icon_bubble_outcoming_bg") capInsets:UIEdgeInsetsMake(25, 20, 10, 20) layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
+        JSQMessagesMediaViewBubbleImageMasker *masker = [[JSQMessagesMediaViewBubbleImageMasker alloc] initWithBubbleImageFactory:factory];
+        
+        if (isOutgoing) {
+            [masker applyOutgoingBubbleImageMaskToMediaView:view];
+        }
+        else {
+            [masker applyIncomingBubbleImageMaskToMediaView:view];
+        }
+    }
+    
+    return view;
+}
+@end
 
 @implementation LLMessage
 - (instancetype)initWithMessageItemModel:(LLMessageItemModel *)itemModel {
     if ([itemModel.type isEqualToString:@"image"]) {
-        JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
+        LLPhotoMediaItem *photoItem = [[LLPhotoMediaItem alloc] initWithImage:nil];
         self = [super initWithSenderId:itemModel.userid?:@""
                      senderDisplayName:itemModel.username?:@""
                                   date:[NSDate dateWithTimeIntervalSince1970:itemModel.timestamp]

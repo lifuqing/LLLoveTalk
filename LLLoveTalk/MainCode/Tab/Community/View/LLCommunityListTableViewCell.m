@@ -130,7 +130,7 @@ NSNotificationName const kFavoriteStatusChangedNotification = @"kFavoriteStatusC
     
     self.timeLabel.text = [NSDate timeAgoSinceDate:[NSDate dateWithTimeIntervalSince1970:itemModel.publish_time]];
     
-    [self.favorButton setTitle:[NSString stringWithFormat:@"%ld", itemModel.likes] forState:UIControlStateNormal];
+    [self.favorButton setTitle:[NSString stringWithFormat:@"%ld", itemModel.likes_count] forState:UIControlStateNormal];
     
     self.favorButton.selected = itemModel.collect;
     
@@ -143,11 +143,11 @@ NSNotificationName const kFavoriteStatusChangedNotification = @"kFavoriteStatusC
     NSDictionary *dict = notify.object;
     NSString *contentid = dict[@"contentid"];
     BOOL collect = [dict[@"collect"] boolValue];
-    NSInteger likes = [dict[@"likes"] integerValue];
+    NSInteger likes_count = [dict[@"likes_count"] integerValue];
     LLCommunityItemModel *itemModel = self.model;
     if ([itemModel.contentid isEqualToString:contentid]) {
         itemModel.collect = collect;
-        itemModel.likes = likes;
+        itemModel.likes_count = likes_count;
         self.model = itemModel;
     }
 }
@@ -172,7 +172,7 @@ NSNotificationName const kFavoriteStatusChangedNotification = @"kFavoriteStatusC
             count = [result[@"data"][@"likes_count"] integerValue];
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteStatusChangedNotification object:@{@"contentid":itemModel.contentid, @"collect":@(status), @"likes":@(count)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteStatusChangedNotification object:@{@"contentid":itemModel.contentid, @"collect":@(status), @"likes_count":@(count)}];
     } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error, LLBaseResponseModel * _Nullable model) {
         sender.enabled = YES;
     }];

@@ -15,7 +15,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.server = [LLConfig sharedInstance].server;//@"http://apillbd.simache.com";//@"http://116.62.90.52"
+        self.server = [LLConfig sharedInstance].server;
         self.serverNew = [LLConfig sharedInstance].serverNew;
     }
     return self;
@@ -57,7 +57,7 @@
 #pragma mark -初始化接口
                      @{
                          @"parser"     : @"InitParser",//,命名规则XXXXListParser
-                         @"server"     : self.server,
+                         @"server"     : self.serverNew,
                          @"url"        : @"/state_check",
                          @"method"     : @"get",
                          @"cache"      : @(NO),

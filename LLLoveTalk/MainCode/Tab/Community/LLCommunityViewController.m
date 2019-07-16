@@ -24,6 +24,7 @@
         self.listDelegate = self;
         self.enablePreLoad = YES;
         self.enableTableBottomView = YES;
+        
     }
     return self;
 }
@@ -35,6 +36,7 @@
     // Do any additional setup after loading the view.
     [self requestData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communityNewStatusCreateSuccessNotification:) name:@"kCommunityNewStatusCreateSuccessNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentCountChangedNotification:) name:@"kCommentCountChangedNotification" object:nil];
 }
 
 - (void)dealloc {
@@ -51,6 +53,10 @@
 }
 
 - (void)communityNewStatusCreateSuccessNotification:(NSNotification *)notify {
+    [self requestData];
+}
+
+- (void)commentCountChangedNotification:(NSNotification *)notify {
     [self requestData];
 }
 

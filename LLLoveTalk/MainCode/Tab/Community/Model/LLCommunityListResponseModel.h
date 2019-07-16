@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSArray <NSString *> *images;
 @property (nonatomic, assign) NSInteger publish_time;
-@property (nonatomic, assign) NSInteger likes;
+@property (nonatomic, assign) NSInteger likes_count;
 @property (nonatomic, assign) NSInteger comments_count;
 @property (nonatomic, assign) BOOL collect;
 

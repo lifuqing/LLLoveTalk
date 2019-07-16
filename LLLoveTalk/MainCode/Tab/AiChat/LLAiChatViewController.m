@@ -19,6 +19,7 @@
 #import "LLAiChatViewController.h"
 #import "UIImage+LLTools.h"
 #import "LLMessage.h"
+#import "LLImageTools.h"
 
 @interface LLAiChatViewController ()
 @property (nonatomic, strong) UIButton *sendButton;
@@ -64,11 +65,6 @@
     
     self.showLoadEarlierMessagesHeader = NO;
     self.automaticallyScrollsToMostRecentMessage = NO;
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开关广播"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(receiveMessagePressed:)];
 
 
     /**
@@ -98,7 +94,8 @@
      *  self.inputToolbar.maximumHeight = 150;
      */
     self.inputToolbar.maximumHeight = 150;
-//    [self setupTimer];
+    
+    [self setupTimer];
 }
 
 - (void)dealloc {
@@ -126,18 +123,18 @@
 - (void)fetchBroadcastMessage {
     LLURL *llurl = [[LLURL alloc] initWithParser:@"FetchBotMessageParser" urlConfigClass:[LLAiLoveURLConfig class]];
     WEAKSELF();
-    self.showTypingIndicator = !self.showTypingIndicator;
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         LLAiMessageListModel *listModel = (LLAiMessageListModel *)model;
-        [listModel.list enumerateObjectsUsingBlock:^(LLBaseModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [weakSelf receiveMessageWith:(LLMessageItemModel *)obj];
-        }];
-        [weakSelf finishReceivingMessageAnimated:YES];
         if (listModel.list.count) {
+            weakSelf.showTypingIndicator = !weakSelf.showTypingIndicator;
+            [listModel.list enumerateObjectsUsingBlock:^(LLBaseModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [weakSelf receiveMessageWith:(LLMessageItemModel *)obj];
+            }];
+            [weakSelf finishReceivingMessageAnimated:YES];
             [weakSelf scrollToBottomAnimated:YES];
         }
     } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error, LLBaseResponseModel * _Nullable model) {
-        [weakSelf finishReceivingMessageAnimated:YES];
+//        [weakSelf finishReceivingMessageAnimated:YES];
     }];
     
 }
@@ -169,32 +166,21 @@
         photoItem.appliesMediaViewMaskAsOutgoing = NO;
         photoItem.image = nil;
         [self scrollToBottomAnimated:YES];
+        [self requestMeidaWithMessage:message];
+    }
+
+}
+
+- (void)requestMeidaWithMessage:(LLMessage *)message {
+    if ([message.media isKindOfClass:[JSQPhotoMediaItem class]]) {
         WEAKSELF();
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:message.image] completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+            JSQPhotoMediaItem *photoItem = (JSQPhotoMediaItem *)message.media;
             photoItem.image = image;
             [weakSelf.collectionView reloadData];
-            [weakSelf scrollToBottomAnimated:YES];
         }];
     }
-
 }
-
-- (void)receiveMessagePressed:(UIBarButtonItem *)sender
-{
-    if (sender.tag == 100) {
-        sender.tag = 0;
-        [MBProgressHUD showMessage:@"计时器已关闭" inView:self.view autoHideTime:1];
-        [self invalidateTimer];
-    }
-    else {
-        sender.tag = 100;
-        [MBProgressHUD showMessage:@"计时器已打开" inView:self.view autoHideTime:1];
-        [self setupTimer];
-    }
-}
-
-
-
 
 #pragma mark - JSQMessagesViewController method overrides
 
@@ -446,7 +432,21 @@
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NSLog(@"Tapped message bubble!");
+    LLMessage *message = self.demoData.messages[indexPath.item];
+    if (message.isMediaMessage) {
+        if ([message.media isKindOfClass:[JSQPhotoMediaItem class]]) {
+            JSQPhotoMediaItem *item = (JSQPhotoMediaItem *)message.media;
+            if (item.image) {
+//                JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+//                [LLImageTools ImageZoomWithImageView:cell.messageBubbleImageView canSaveToAlbum:YES];
+            }
+            else {
+                [self requestMeidaWithMessage:message];
+            }
+        }
+    }
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation

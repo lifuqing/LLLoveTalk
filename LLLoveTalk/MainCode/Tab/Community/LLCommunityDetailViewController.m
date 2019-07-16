@@ -12,6 +12,7 @@
 #import "LLCommentListResponseModel.h"
 #import "LLImageTools.h"
 #import "UIImage+LLTools.h"
+#import "LLLoginViewController.h"
 
 @interface LLCommunityDetailViewController () <LLContainerListDelegate, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, copy) NSString *contentid;
@@ -68,10 +69,19 @@
 - (void)requestListDataSuccessWithArray:(NSArray *)array {
     [super requestListDataSuccessWithArray:array];
     [self addTitleToNavBar:self.author.username];
+    LLErrorView *errorView = [LLErrorView errorViewInView:self.listTableView];
+    if (errorView && errorView.errorType == LLErrorTypeNoData) {
+        [LLErrorView hideErrorViewInView:self.listTableView];
+    }
 }
 #pragma mark - action
 - (void)sendButtonActionClick:(UIButton *)sender {
     [self.commentTextField resignFirstResponder];
+    if (![LLUser sharedInstance].isLogin) {
+        LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+        return;
+    }
     sender.enabled = NO;
     LLURL *llurl = [[LLURL alloc] initWithParser:@"SendCommentParser" urlConfigClass:[LLAiLoveURLConfig class]];
     [llurl.params addEntriesFromDictionary:@{@"comments":self.commentTextField.text?:@"", @"contentid":self.contentid?:@""}];
@@ -80,9 +90,12 @@
     WEAKSELF();
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         sender.enabled = YES;
-        [MBProgressHUD showMessage:@"发布成功" inView:weakSelf.view autoHideTime:1];
+        [MBProgressHUD showMessage:@"发布成功" inView:weakSelf.view autoHideTime:1 interactionEnabled:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kCommentCountChangedNotification" object:nil];
+        }];
         weakSelf.commentTextField.text = @"";
         [weakSelf requestData];
+        
     } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error, LLBaseResponseModel * _Nullable model) {
         sender.enabled = YES;
         [MBProgressHUD showMessage:model.errorMsg ?: @"发布失败" inView:weakSelf.view autoHideTime:1];

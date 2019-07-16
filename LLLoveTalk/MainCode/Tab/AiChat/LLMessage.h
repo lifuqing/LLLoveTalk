@@ -7,8 +7,14 @@
 
 #import "JSQMessage.h"
 #import "LLAiMessageListModel.h"
+#import "JSQPhotoMediaItem.H"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface LLPhotoMediaItem : JSQPhotoMediaItem <JSQMessageMediaData>
+
+@end
+
 @interface LLMessage : JSQMessage
 ///`dialog`,`broadcast`
 @property (nonatomic, copy) NSString *model;

@@ -28,8 +28,6 @@
 
 @property (nonatomic, strong) HXPhotoManager *manager;
 
-//@property (nonatomic, strong) NSMutableArray<NSString *> *photoIdentifiers;
-
 @end
 
 @implementation LLCommunityNewStatusViewController
@@ -63,9 +61,16 @@
 #pragma mark - private
 
 - (void)textViewTextDidChangeNotification:(NSNotification *)notify {
-    self.sendButton.enabled = self.textView.text.length > 0;
+    [self handleStatus];
 }
-
+- (void)handleStatus {
+    if (self.textView.text.length > 0 && self.photos.count > 0) {
+        self.sendButton.enabled = YES;
+    }
+    else {
+        self.sendButton.enabled = NO;
+    }
+}
 - (void)layoutUI {
     [[_contentView subviews] enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
@@ -93,7 +98,7 @@
         [self.contentView addSubview:self.addButton];
         self.addButton.frame = CGRectMake(15 + (w + 15) * self.photos.count, 15, w, w);
     }
-    
+    [self handleStatus];
 }
 
 - (CGFloat)realPhotoWidth {
@@ -120,7 +125,7 @@
             [imageArray enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LLImageModel *model = [[LLImageModel alloc] init];
                 model.image = obj;
-                model.identifier = [[NSString stringWithFormat:@"image_%@_%ld", @([[NSDate date] timeIntervalSince1970]), idx] llurlMd5Digest];
+                model.identifier = [[NSString stringWithFormat:@"image_%@_%lu.png", @([[NSDate date] timeIntervalSince1970]), idx] llurlMd5Digest];
                 
                 [weakSelf.photos addObject:model];
             }];
@@ -128,8 +133,10 @@
             [weakSelf layoutUI];
 
         }];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     } cancel:^(UIViewController *viewController, HXPhotoManager *manager) {
         NSSLog(@"block - 取消了");
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }];
     
 }
@@ -163,7 +170,7 @@
     [self uploadImageModelsCompletion:^(NSArray<LLImageModel *> *resultModels) {
         NSArray <LLImageModel *> *noUploadModels = [resultModels filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hasUpload == 0"]];
         if (noUploadModels.count > 0) {
-            [MBProgressHUD showMessage:[NSString stringWithFormat:@"您有%lu张图片上传失败", noUploadModels.count] inView:weakSelf.view autoHideTime:1];
+            [MBProgressHUD showMessage:[NSString stringWithFormat:@"您有%@张图片上传失败", @(noUploadModels.count)] inView:weakSelf.view autoHideTime:1];
             sender.enabled = YES;
         }
         else {
@@ -218,7 +225,7 @@
 //    put.objectKey = @"<objectKey>";
     put.bucketName = [LLConfig sharedInstance].OSS_BUCKETNAME;
     
-    put.objectKey = [NSString stringWithFormat:@"%@.png", imageModel.identifier];
+    put.objectKey = imageModel.identifier;
     
     put.isAuthenticationRequired = YES;
 //    put.uploadingFileURL = [NSURL fileURLWithPath:@"<filepath>"];

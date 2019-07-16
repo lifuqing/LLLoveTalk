@@ -43,9 +43,11 @@
     self.arrow.frame = CGRectMake(self.bgView.width - 15, (height - 12)/2.0, 7, 12);
     
     _thumbView.frame = CGRectMake(15, 13, 20, 20);
-    _titleLabel.frame = CGRectMake(_thumbView.right + 15, (height - titleH)/2.0, 100, titleH);
-    _descLabel.frame =  CGRectMake(100, (height - titleH)/2.0, self.bgView.width - 100 - 20, titleH);
-    _descTextField.frame = CGRectMake(100, (height - titleH)/2.0, self.bgView.width - 100 - 20, titleH);
+    CGFloat titleW = [_titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+    
+    _titleLabel.frame = CGRectMake(_thumbView.right + 15, (height - titleH)/2.0, titleW, titleH);
+    _descLabel.frame =  CGRectMake(_titleLabel.right, (height - titleH)/2.0, self.bgView.width - _titleLabel.right - 20, titleH);
+    _descTextField.frame = CGRectMake(_titleLabel.right, (height - titleH)/2.0, self.bgView.width - _titleLabel.right - 20, titleH);
 }
 
 - (void)configUIWithImage:(nullable UIImage *)image title:(nullable NSString *)title desc:(nullable NSString *)desc descTextField:(nullable NSString *)descTextField descPlaceholder:(nullable NSString *)descPlaceholder {
@@ -86,7 +88,7 @@
         _descTextField = nil;
     }
     
-    
+    [self setNeedsLayout];
 }
 - (UIImageView *)thumbView {
     if (!_thumbView) {
