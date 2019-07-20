@@ -190,9 +190,11 @@
 
 - (UIView *)headerView {
     if (!_headerView) {
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 140)];
+        CGFloat vipDescHeight = [LLConfig sharedInstance].isPassedCheck ? 40 : 0;
         
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.view.width - 30, 140)];
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 100 + vipDescHeight)];
+        
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.view.width - 30, _headerView.height)];
         bgView.backgroundColor = [UIColor whiteColor];
         
         _headIconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 70, 70)];
@@ -215,8 +217,10 @@
         [bgView addSubview:_headIconView];
         [bgView addSubview:_titleLabel];
         [bgView addSubview:_subTitleLabel];
-        [bgView addSubview:_vipLabel];
-        [bgView addSubview:_vipTimeLabel];
+        if ([LLConfig sharedInstance].isPassedCheck) {
+            [bgView addSubview:_vipLabel];
+            [bgView addSubview:_vipTimeLabel];
+        }
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeadAction:)];
         [_headerView addGestureRecognizer:tap];
         
@@ -227,7 +231,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [LLUser sharedInstance].isLogin ? 3 : 1;
+    return [LLUser sharedInstance].isLogin ? ([LLConfig sharedInstance].isPassedCheck ? 3 : 2) : 1;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -273,7 +277,7 @@
             cell.descTextField.tag = 100 + indexPath.row;
             cell.descTextField.delegate = self;
         }
-        else if (indexPath.section == 1) {
+        else if (indexPath.section == 1 && [LLConfig sharedInstance].isPassedCheck) {
             if ([LLUser sharedInstance].isSuperVIP) {
                 [cell configUIWithImage:LLImage(@"my_vip") title:@"您已是永久会员" desc:nil descTextField:nil descPlaceholder:nil];
             }
@@ -296,19 +300,26 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([LLUser sharedInstance].isLogin) {
-        if (indexPath.section == 1) {
-            if ([LLUser sharedInstance].isSuperVIP) {
-                [UIAlertController ll_showAlertWithTarget:self title:@"提示" message:@"您已是永久会员，可以使用全部功能" cancelTitle:@"好的" otherTitles:nil completion:nil];
-            }
-            else {
-                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-                [LLNav pushViewController:vc animated:YES];
-            }
-        }
-        else if (indexPath.section == 2) {
+        if (![LLConfig sharedInstance].isPassedCheck && indexPath.section == 1) {
             LLPrivateViewController *vc = [[LLPrivateViewController alloc] init];
             [LLNav pushViewController:vc animated:YES];
         }
+        else {
+            if (indexPath.section == 1) {
+                if ([LLUser sharedInstance].isSuperVIP) {
+                    [UIAlertController ll_showAlertWithTarget:self title:@"提示" message:@"您已是永久会员，可以使用全部功能" cancelTitle:@"好的" otherTitles:nil completion:nil];
+                }
+                else {
+                    LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+                    [LLNav pushViewController:vc animated:YES];
+                }
+            }
+            else if (indexPath.section == 2) {
+                LLPrivateViewController *vc = [[LLPrivateViewController alloc] init];
+                [LLNav pushViewController:vc animated:YES];
+            }
+        }
+        
     }
     else {
         LLPrivateViewController *vc = [[LLPrivateViewController alloc] init];

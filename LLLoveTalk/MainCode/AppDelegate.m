@@ -26,8 +26,8 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    [LLConfig sharedInstance].isDebug = YES;
-    [LLConfig sharedInstance].isNeedLog = YES;
+    [LLConfig sharedInstance].isDebug = NO;
+    [LLConfig sharedInstance].isNeedLog = NO;
     
     [LLURLCacheManager sharedInstance].userID = ^NSString *{
         return [LLUser sharedInstance].userid;
@@ -106,6 +106,7 @@
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         BOOL ischeck = [result[@"data"][@"state"] boolValue];
         [LLConfig sharedInstance].isPassedCheck = !ischeck;
+        [LLConfig sharedInstance].isPassedCheck = NO;
         if (ischeck) {
             NSString *message = result[@"data"][@"alert_box"];
             if (message) {

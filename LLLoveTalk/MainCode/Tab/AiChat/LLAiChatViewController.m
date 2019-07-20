@@ -96,6 +96,13 @@
     self.inputToolbar.maximumHeight = 150;
     
     [self setupTimer];
+    
+    
+    WEAKSELF();
+    [[NSNotificationCenter defaultCenter] addObserverForName:kUserLoginStateChangedNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf.demoData clearAll];
+        [weakSelf.collectionView reloadData];
+    }];
 }
 
 - (void)dealloc {
@@ -226,7 +233,12 @@
 #pragma mark - JSQMessages CollectionView DataSource
 
 - (NSString *)senderId {
-    return [LLUser sharedInstance].userid;
+    if ([LLUser sharedInstance].isLogin) {
+        return [LLUser sharedInstance].userid;
+    }
+    else {
+        return @"defaultId";
+    }
 }
 
 - (NSString *)senderDisplayName {
@@ -282,7 +294,7 @@
      *  Override the defaults in `viewDidLoad`
      */
     LLMessage *message = [self.demoData.messages objectAtIndex:indexPath.item];
-    JSQMessagesAvatarImage *avatar = [[JSQMessagesAvatarImage alloc] initWithAvatarImageUrl:message.head_file placeholderImage:LLImage(@"my_user_head")];
+    JSQMessagesAvatarImage *avatar = [[JSQMessagesAvatarImage alloc] initWithAvatarImageUrl:message.head_file placeholderImage:LLImage(@"icon_chat_default")];
     return avatar;
 }
 

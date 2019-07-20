@@ -100,17 +100,17 @@
 
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if (![LLUser sharedInstance].isLogin) {
-        NSInteger aiPosition = 1;
-        if ([LLConfig sharedInstance].isPassedCheck) {
-            aiPosition = 2;
-        }
-        if ([tabBarController.viewControllers indexOfObject:viewController] == aiPosition) {
-            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
-            [[LLNav topViewController] presentViewController:vc animated:YES completion:nil];
-            return NO;
-        }
-    }
+//    if (![LLUser sharedInstance].isLogin) {
+//        NSInteger aiPosition = 1;
+//        if ([LLConfig sharedInstance].isPassedCheck) {
+//            aiPosition = 2;
+//        }
+//        if ([tabBarController.viewControllers indexOfObject:viewController] == aiPosition) {
+//            LLLoginViewController *vc = [[LLLoginViewController alloc] init];
+//            [[LLNav topViewController] presentViewController:vc animated:YES completion:nil];
+//            return NO;
+//        }
+//    }
     return YES;
 }
 

@@ -40,14 +40,14 @@
 }
 - (NSDictionary *)configDictionary{
     return @{@"debug"   : @{@"server"   : @"http://api.dgthp.com",
-                            @"serverNew": @"http://47.110.158.235:5000",
+                            @"serverNew": @"https://oneonly.dgthp.com:5000",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
              @"release" : @{@"server"   : @"http://api.dgthp.com",
-                            @"serverNew": @"",
+                            @"serverNew": @"https://oneonly.dgthp.com:5000",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",

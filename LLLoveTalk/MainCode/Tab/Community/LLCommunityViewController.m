@@ -37,6 +37,11 @@
     [self requestData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communityNewStatusCreateSuccessNotification:) name:@"kCommunityNewStatusCreateSuccessNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentCountChangedNotification:) name:@"kCommentCountChangedNotification" object:nil];
+    
+    WEAKSELF();
+    [[NSNotificationCenter defaultCenter] addObserverForName:kUserLoginStateChangedNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf requestData];
+    }];
 }
 
 - (void)dealloc {

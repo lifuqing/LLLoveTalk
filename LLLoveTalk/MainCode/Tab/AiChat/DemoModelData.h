@@ -25,7 +25,7 @@
 
 @property (strong, nonatomic) NSMutableArray<LLMessage *> *messages;
 
-- (void)insertMessage;
-
 - (BOOL)addMessageWithModel:(LLMessageItemModel *)model;
+
+- (void)clearAll;
 @end
