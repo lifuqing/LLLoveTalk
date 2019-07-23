@@ -39,15 +39,15 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 - (NSDictionary *)configDictionary{
-    return @{@"debug"   : @{@"server"   : @"http://api.dgthp.com",
-                            @"serverNew": @"https://oneonly.dgthp.com:5000",
+    return @{@"debug"   : @{@"server"   : @"https://oneonly.dgthp.com",
+                            @"serverNew": @"https://oneonly.dgthp.com",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",
                                             @"ipad"     : @""}
                             },
-             @"release" : @{@"server"   : @"http://api.dgthp.com",
-                            @"serverNew": @"https://oneonly.dgthp.com:5000",
+             @"release" : @{@"server"   : @"https://oneonly.dgthp.com",
+                            @"serverNew": @"https://oneonly.dgthp.com",
                             @"pid"      : @{@"iphone"   : @"appstore",
                                             @"ipad"     : @"appstore_hd"},
                             @"secret"   : @{@"iphone"   : @"",

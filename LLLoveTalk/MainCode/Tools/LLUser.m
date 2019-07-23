@@ -132,7 +132,10 @@ NSString *const kIAPProductIdKey = @"productId";
     }
     
     LLURL *llurl = [[LLURL alloc] initWithParser:parser urlConfigClass:[LLAiLoveURLConfig class]];
-    [llurl.params addEntriesFromDictionary:dict];
+    if (dict) {
+        [llurl.params addEntriesFromDictionary:dict];
+    }
+    
     WEAKSELF();
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         STRONGSELF();
