@@ -8,9 +8,6 @@
 #import "AppDelegate.h"
 #import "LLTabBarViewController.h"
 #import "LLBaseNavigationController.h"
-#import <StoreKit/StoreKit.h>
-#import "LLIAPShare.h"
-#import "LLProductListResponseModel.h"
 #import "LLUser.h"
 
 @interface AppDelegate ()
@@ -66,7 +63,7 @@
     [self setupOSSClient];
     
     if ([LLUser sharedInstance].isLogin && ![LLUser sharedInstance].isSuperVIP) {
-        [self observeIAPStatus];
+       
     }
 }
 
@@ -106,7 +103,6 @@
     [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
         BOOL ischeck = [result[@"data"][@"state"] boolValue];
         [LLConfig sharedInstance].isPassedCheck = !ischeck;
-        [LLConfig sharedInstance].isPassedCheck = NO;
         if (ischeck) {
             NSString *message = result[@"data"][@"alert_box"];
             if (message) {
@@ -151,70 +147,5 @@
 }
 
 
-- (void)observeIAPStatus {
-    WEAKSELF();
-    LLURL *llurl = [[LLURL alloc] initWithParser:@"GetProductInfoParser" urlConfigClass:[LLAiLoveURLConfig class]];
-    
-    [[LLHttpEngine sharedInstance] sendRequestWithLLURL:llurl target:self success:^(NSURLResponse * _Nullable response, NSDictionary * _Nullable result, LLBaseResponseModel * _Nullable model, BOOL isLocalCache) {
-        LLProductListResponseModel *productListModel = (LLProductListResponseModel *)model;
-        NSSet<NSString *> *productIds = [NSSet setWithArray:[productListModel.list valueForKey:@"productId"]];
-        [weakSelf configIAPWithIdentifiers:productIds];
-    } failure:^(NSURLResponse * _Nullable response, NSError * _Nullable error,  LLBaseResponseModel * _Nullable model) {
-    }];
-}
-
-- (void)configIAPWithIdentifiers:(NSSet *)identifiers {
-    WEAKSELF();
-    if(![LLIAPShare sharedHelper].iap) {
-        [LLIAPShare sharedHelper].iap = [[LLIAPHelper alloc] initWithProductIdentifiers:identifiers];
-    }
-    
-    if ([LLConfig sharedInstance].isDebug) {
-        [LLIAPShare sharedHelper].iap.production = NO;
-    }
-    else {
-        //审核时提供给Apple用于验证使用
-        if ([[LLUser sharedInstance].phone isEqualToString:@"12345678910"]) {
-            [LLIAPShare sharedHelper].iap.production = NO;
-        }
-        else {
-            [LLIAPShare sharedHelper].iap.production = YES;
-        }
-    }
-    
-    
-    LLIAPHelper *iap = [LLIAPShare sharedHelper].iap;
-    iap.buyProductCompleteBlock = ^(SKPaymentTransaction *transcation) {
-        STRONGSELF();
-        if (transcation.transactionState == SKPaymentTransactionStatePurchased) {
-            // 订阅特殊处理
-            if (transcation.originalTransaction) {
-                // 如果是自动续费的订单,originalTransaction会有内容
-                [strongSelf checkReciept:transcation];
-                DLog(@"自动续费的订单,originalTransaction = %@",transcation.originalTransaction);
-            } else {
-                // 普通购买，以及第一次购买自动订阅
-                DLog(@"普通购买，以及第一次购买自动订阅");
-            }
-
-        }
-    };
-}
-
-- (void)checkReciept:(SKPaymentTransaction *)transcation {
-    NSData *receiptData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-    [[LLIAPShare sharedHelper].iap checkReceipt:receiptData AndSharedSecret:[LLConfig sharedInstance].shareSecret onCompletion:^(NSString *response, NSError *error) {
-        
-        //Convert JSON String to NSDictionary
-        NSDictionary* rec = [LLIAPShare toJSON:response];
-        
-        if([rec[@"status"] integerValue]==0)
-        {
-            [[LLIAPShare sharedHelper].iap provideContentWithTransaction:transcation];
-            NSString *receiptBase64 = [NSString base64StringFromData:receiptData];
-            [[LLUser sharedInstance] uploadBuyProductId:transcation.payment.productIdentifier receiptBase64:receiptBase64 completion:nil];
-        }
-    }];
-}
 
 @end

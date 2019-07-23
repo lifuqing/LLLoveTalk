@@ -11,7 +11,7 @@
 #import "LLChatPrivateTableViewCell.h"
 #import "LLSearchViewController.h"
 #import "LLLoginViewController.h"
-#import "LLBuyVipViewController.h"
+//#import "LLBuyVipViewController.h"
 
 @interface LLTagExampleListViewController () <LLContainerListDelegate>
 @property (nonatomic, strong) UIView *header;
@@ -176,8 +176,8 @@
     if (model.hide) {
         if ([LLUser sharedInstance].isLogin) {
             if (![LLUser sharedInstance].ispaid) {
-                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-                [LLNav pushViewController:vc animated:YES];
+//                LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+//                [LLNav pushViewController:vc animated:YES];
             }
         }
         else {

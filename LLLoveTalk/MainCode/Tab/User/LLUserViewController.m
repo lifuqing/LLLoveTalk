@@ -9,7 +9,7 @@
 #import "LLLoginViewController.h"
 #import "LLUserTableViewCell.h"
 #import "LLPrivateViewController.h"
-#import "LLBuyVipViewController.h"
+//#import "LLBuyVipViewController.h"
 
 @interface LLUserViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -310,8 +310,8 @@
                     [UIAlertController ll_showAlertWithTarget:self title:@"提示" message:@"您已是永久会员，可以使用全部功能" cancelTitle:@"好的" otherTitles:nil completion:nil];
                 }
                 else {
-                    LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
-                    [LLNav pushViewController:vc animated:YES];
+//                    LLBuyVipViewController *vc = [[LLBuyVipViewController alloc] init];
+//                    [LLNav pushViewController:vc animated:YES];
                 }
             }
             else if (indexPath.section == 2) {
