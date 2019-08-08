@@ -130,11 +130,11 @@ NSNotificationName const kFavoriteStatusChangedNotification = @"kFavoriteStatusC
     
     self.timeLabel.text = [NSDate timeAgoSinceDate:[NSDate dateWithTimeIntervalSince1970:itemModel.publish_time]];
     
-    [self.favorButton setTitle:[NSString stringWithFormat:@"%ld", itemModel.likes_count] forState:UIControlStateNormal];
+    [self.favorButton setTitle:[NSString stringWithFormat:@"%lu", itemModel.likes_count] forState:UIControlStateNormal];
     
     self.favorButton.selected = itemModel.collect;
     
-    [self.commentButton setTitle:[NSString stringWithFormat:@"%ld", itemModel.comments_count] forState:UIControlStateNormal];
+    [self.commentButton setTitle:[NSString stringWithFormat:@"%lu", itemModel.comments_count] forState:UIControlStateNormal];
     
     [self setNeedsLayout];
 }
